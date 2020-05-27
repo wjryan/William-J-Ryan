@@ -3,7 +3,16 @@
 <html>
 
 </head>
-
+<style media="screen">
+	img {
+	            float: left;
+	            margin: 5px;
+	        }
+	        p {
+	            text-align: justify;
+	            font-size: 20px;
+	        }
+</style>
 <head>
 
 	<title>William_Ryan</title>
@@ -169,7 +178,7 @@ gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = Tru
 
 sed = gta.sed(SOURCE,prefix='SED_fit_LP', bin_index = 1.72304034233, free_background = True, cov_scale = None,free_pars=['norm','alpha','beta'])
 
-gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre> </p>
+gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
 <hr>
 <p> <strong>ltcurve.py</strong>:<br>
 <a href="ltcurve.py">View</a><br>
@@ -245,16 +254,25 @@ fig.tight_layout(pad=0.5)
 plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_TS_Hist'+'.png')
 
 lctab = Table([lc['tmin_mjd'],lc['tmax_mjd'],lc['ts'],lc['flux'],lc['flux_err'],lc['eflux'],lc['eflux_err']])
-lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</pre></p>
+lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</pre>
 <hr>
 
 <h2 style="text-align:center;">OUTPUT FILES AND IMAGES</h2>
 
 <h3 style="text-align:center;">Counts Map</h3>
-<img src="fit_LP_counts_map_2.0000_5.710.png" alt="this is supposed to be a desription. lets see what it looks like" />
+<div class="square">
+
+<img src="fit_LP_counts_map_2.000_5.710.png" align="center" width="466" height="333" border=10px>
+
+<p>where is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this text</p>
+</div>
+
+<img src="fit_LP_counts_map_2.000_5.710.png" align="center" width="466" height="333" border=10px>
+
+
+
 
 <h2 style="text-align:center;">PROBLEM SOLVING</h2>
-
 
 </body>
 
