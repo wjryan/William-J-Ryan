@@ -45,6 +45,7 @@
 	Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.</p>
 
 <h2 style="text-align:center;">THE DATA</h2>
+<p>The data for your source can be downloaded from the FERMIlat website<a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as the corrdinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe energy range where fermi is most accurate is between 100 and 513000 MeV. Maker sure the space craft file is checkmarked. The search radius is 15 degrees. After downloading the data onto your computer you can use the rsync command to transfer the files to the college server. I used to have code that would download the data directly onto the server however it does not appear to be working at the moment. Nonethless I will link the file here</p>
 
 <h2 style="text-align:center;">THE CODE</h2>
 <p>  Here I explain each of the three main files and what you will need to be changed in order to run a succesful analysis. The original file is linked below each header. Any italicised explanations are not apart of the original file and are meant to clarify commands.</p>
@@ -61,7 +62,7 @@
 	<p><i>First note that their are no tabs within this config.yaml. Eveything is spaced by spacebar spaces. The program can not handle tabs and will raise an error if a tab present. Using enter to move to a new line is fine.</i></p>
 
 <pre>
-data: 
+data:
 </pre><p><i> Here we have the paths to the data we will use in the analysis. A soft link to the data folder should be created within the same folder as the code in order for everything to function correctly. The text file within the data folder will be something you will have to create. It contains the path to each individual photon data file. You can take a look at the format through this hyperlink.</i></p><pre>
       <mark>evfile : 'data/<a href="mrk421_binned_events.txt">mrk421_binned_events.txt</a>'</mark>
       <mark>scfile : 'data/mrk421_SC00.fits'</mark>
@@ -72,19 +73,19 @@ binning:
       binsperdec : 8
 
 selection:
-      emin : 100 
+      emin : 100
       emax : 513000
-      zmax : 90 
+      zmax : 90
 </pre><p><i> These <b>tmin tmax</b> values designate the start and end time of your analysis. They are formatted in <b>fermi seconds</b> and a time converter can be found <a href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">here<a></i></p><pre>
       <mark>tmin : 239599263.000000</mark>
       <mark>tmax : 263677795.000000</mark>
       evclass : 128
       evtype : 3
 </pre><p><i> Ra stands for Right Ascension and Dec stand for Declination. These are the corrdinates of your source. And the target is the name of your source as found in the catalog </i></p><pre>
-      <mark>ra : 166.113808</mark> 
-      <mark>dec : 38.208833</mark> 
+      <mark>ra : 166.113808</mark>
+      <mark>dec : 38.208833</mark>
       <mark>target : 'mkn 421'</mark>
-      radius : 10.0 
+      radius : 10.0
       # gtmktime parameters
       filter : 'DATA_QUAL>0 && LAT_CONFIG==1'
       roicut : 'no'
@@ -113,7 +114,7 @@ lightcurve:
       <mark>outdir : 'ltcurve_files'</mark>
       <mark>binsz : 84600.0 #1 days</mark>
       free_background : True
-      
+
 sed:
       make_plots : True
       free_background : True
@@ -135,7 +136,7 @@ from fermipy.gtanalysis import GTAnalysis
 from fermipy.plotting import ROIPlotter, SEDPlotter
 from astropy.table import Table, Column
 import astropy.io.fits as pyfits
-import yaml 
+import yaml
 
 plt.switch_backend('agg')
 
@@ -185,7 +186,7 @@ from fermipy.gtanalysis import GTAnalysis
 from fermipy.plotting import ROIPlotter, SEDPlotter
 from astropy.table import Table, Column
 import astropy.io.fits as pyfits
-import yaml 
+import yaml
 
 plt.switch_backend('agg')
 
@@ -203,7 +204,7 @@ print(gta.roi[SOURCE])
 
 
 gta.set_parameter('4FGL J1104.4+3812','norm',value = 1.721997147e-11, scale = 1, error = 0.01313677393e-11, update_source = False)
-gta.set_parameter_bounds('4FGL J1104.4+3812','norm',[1e-16,1000e-11]) 
+gta.set_parameter_bounds('4FGL J1104.4+3812','norm',[1e-16,1000e-11])
 
 gta.set_parameter('4FGL J1104.4+3812','alpha', value = 1.739376675, scale = 1, error =  0.006991402649, update_source = False)
 gta.set_parameter('4FGL J1104.4+3812','Eb', value = 1287.365845, scale = 1, update_source = False)
