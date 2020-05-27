@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+
+</head>
+
+<head>
+
+	<title>William_Ryan</title>
+	<meta charset="utf-8">
+
+
+</head>
+
+<nav>
+  <ul>
+    <li><a href="will.html">Home</a></li>
+    <li><a href="thoughts.html">Writings</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="fermipy_guide.html">Fermipy Guide</a></li>
+  </ul>
+</nav>
+
+
+
+<body>
+
+<h1 style="text-align:center;">FERMIPY</h1>
+
+<hr>
+
+<p> <strong>What is FERMI?</strong><br><br>
+	Fermi is a satellite gamma ray telescope. It lives in space gathering photons and pooping out data.</p>
+
+<p> <strong>WHAT IS FERMIPY?</strong> <br><br>
+	Fermipy is a set of coding tools in python tailored to analyze data from the Fermi Large Area Telescope (FermiLAT), one of two instruments aboard the Fermi satellite. The code takes in photon data and spits out something meaningful, usually. This Guide will go over the two analysis methods I am most familiar with, SED and Lightcurve.</p>
+
+<h2 style="text-align:center;">GENERAL OVERVIEW OF THE ANALYSIS</h2>
+<p> <strong>SED Analysis</strong>:<br><br>
+
+	Given a photon has a continuous distribution of energies it could possess we can sort a source's photon data set into groups (bins) of similar energies. Each bin can be translated into a total energy, graphed, and fit with a model. This model's fancy name is a Spectral Energy Distribution or SED for short. With an SED we know how much energy is emitted from a source at a specific energy. SEDs are useful for creating a lightcurve and understanding the basic properties of the source in question.</p>
+
+<p> <strong>Lightcurve Analysis</strong>:<br><br>
+
+	Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.</p>
+
+<h2 style="text-align:center;">THE DATA</h2>
+
+<h2 style="text-align:center;">THE CODE</h2>
+<p>  Here I explain each of the three main files and what you will need to be changed in order to run a succesful analysis. The original file is linked below each header. Any italicised explanations are not apart of the original file and are meant to clarify commands.</p>
+
+<h2 style="text-align:center;">A note on file Folder structure and file placement</h2>
+<p>I recommend having a parent directory that houses one folder containing your data and one folder containing all code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. You will need to create a soft-link in your code folder for the programs to access the data; however, using a soft-link will allow you to run multiple analysis using the same data files.</p>
+
+<hr>
+<p> <strong>config.yaml</strong>:<br>
+<a href="config.yaml">View</a><br>
+<a href="config.yaml" download>Download</a><br>
+	This is the configuration file where a majority of your source information, file paths, and analysis parameters will be inputed. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/config.html">link<a>. Everything highlighted <mark>yellow</mark> marks the least number of changes required to run your analysis</p>
+<hr>
+	<p><i>First note that their are no tabs within this config.yaml. Eveything is spaced by spacebar spaces. The program can not handle tabs and will raise an error if a tab present. Using enter to move to a new line is fine.</i></p>
+
+<pre>
+data: 
+</pre><p><i> Here we have the paths to the data we will use in the analysis. A soft link to the data folder should be created within the same folder as the code in order for everything to function correctly. The text file within the data folder will be something you will have to create. It contains the path to each individual photon data file. You can take a look at the format through this hyperlink.</i></p><pre>
+      <mark>evfile : 'data/<a href="mrk421_binned_events.txt">mrk421_binned_events.txt</a>'</mark>
+      <mark>scfile : 'data/mrk421_SC00.fits'</mark>
+
+binning:
+      roiwidth : 10.0
+      binsz : 0.1
+      binsperdec : 8
+
+selection:
+      emin : 100 
+      emax : 513000
+      zmax : 90 
+</pre><p><i> These <b>tmin tmax</b> values designate the start and end time of your analysis. They are formatted in <b>fermi seconds</b> and a time converter can be found <a href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">here<a></i></p><pre>
+      <mark>tmin : 239599263.000000</mark>
+      <mark>tmax : 263677795.000000</mark>
+      evclass : 128
+      evtype : 3
+</pre><p><i> Ra stands for Right Ascension and Dec stand for Declination. These are the corrdinates of your source. And the target is the name of your source as found in the catalog </i></p><pre>
+      <mark>ra : 166.113808</mark> 
+      <mark>dec : 38.208833</mark> 
+      <mark>target : 'mkn 421'</mark>
+      radius : 10.0 
+      # gtmktime parameters
+      filter : 'DATA_QUAL>0 && LAT_CONFIG==1'
+      roicut : 'no'
+
+
+gtlike:
+      edisp : True
+      irfs : 'P8R3_SOURCE_V2'
+      edisp_disable : ['isodiff', 'galdiff']
+
+model:
+      src_roiwidth: 15.0
+      galdiff : '$FERMI_DIR/refdata/fermi/galdiffuse/gll_iem_v07.fits'
+      isodiff : '$FERMI_DIR/refdata/fermi/galdiffuse/iso_P8R3_SOURCE_V2_v1.txt'
+      catalogs : ['4FGL']
+
+fileio:
+</pre><p><i>The outdir is the name of the directory that the output files will be placed. If the folder does not exist when either sed.py or ltcurve.py is run then the folder will be automatically created. The fermipy.log is is like a text file that contains some of the programs messages including error messages. It is also created when a program is run and will be added to if the program is run again. If you are having problems I would recommend renaming fermipi.log after each run so you can distinguish run errors if they appear</i></p><pre>
+      <mark>outdir : 'output'</mark>
+      <mark>logfile : fermipy.log</mark>
+
+
+lightcurve:
+      make_plots : True
+</pre><p><i>When running ltcurve.py the analysis run on each bin will be placed within the outdir specified here. In turn that folder will be placed in the fileio outdir. The binsz specifies the size of the time bins you wish to use when creating the light-curve.</i></p><pre>
+      <mark>outdir : 'ltcurve_files'</mark>
+      <mark>binsz : 84600.0 #1 days</mark>
+      free_background : True
+      
+sed:
+      make_plots : True
+      free_background : True
+</pre>
+<hr>
+
+<p> <strong>sed.py</strong>:<br>
+<a href="sed.py">View</a><br>
+<a href="sed.py" download>Download</a><br>
+<hr>
+<pre>
+#!/usr/bin/env python2.7
+
+import os
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+from fermipy.gtanalysis import GTAnalysis
+from fermipy.plotting import ROIPlotter, SEDPlotter
+from astropy.table import Table, Column
+import astropy.io.fits as pyfits
+import yaml 
+
+plt.switch_backend('agg')
+
+config = yaml.load(open('config.yaml'))
+SOURCE = config['selection']['target']
+DIR = config['fileio']['outdir']
+LCDIR = config['lightcurve']['outdir']
+
+gta = GTAnalysis('config.yaml', logging={'verbosity':3})
+matplotlib.interactive(True)
+gta.setup()
+
+gta.print_model()
+print(gta.roi[SOURCE])
+
+gta.free_sources(minmax_ts = [9,1600000])
+
+fit_results = gta.fit()
+gta.print_model()
+print(gta.roi[SOURCE])
+gta.write_roi('fit_LP', make_plots=True,save_model_map=True)
+tsmap = gta.tsmap(prefix='TSmap_fit_LP', make_plots=True)
+resid = gta.residmap('Residuals_fit_LP',make_plots=True)
+
+gta.print_model()
+gta.print_params(allpars=True)
+gta.print_roi()
+
+gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
+
+sed = gta.sed(SOURCE,prefix='SED_fit_LP', bin_index = 1.72304034233, free_background = True, cov_scale = None,free_pars=['norm','alpha','beta'])
+
+gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre> </p>
+<hr>
+<p> <strong>ltcurve.py</strong>:<br>
+<a href="ltcurve.py">View</a><br>
+<a href="sed.py" download>Download</a><br>
+<hr>
+<pre>
+#!/usr/bin/env python2.7
+
+import os
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+from fermipy.gtanalysis import GTAnalysis
+from fermipy.plotting import ROIPlotter, SEDPlotter
+from astropy.table import Table, Column
+import astropy.io.fits as pyfits
+import yaml 
+
+plt.switch_backend('agg')
+
+config = yaml.load(open('config1.yaml'))
+SOURCE = config['selection']['target']
+DIR = config['fileio']['outdir']
+LCDIR = config['lightcurve']['outdir']
+
+gta = GTAnalysis('config1.yaml', logging={'verbosity':3})
+matplotlib.interactive(True)
+gta.setup()
+
+gta.print_model()
+print(gta.roi[SOURCE])
+
+
+gta.set_parameter('4FGL J1104.4+3812','norm',value = 1.721997147e-11, scale = 1, error = 0.01313677393e-11, update_source = False)
+gta.set_parameter_bounds('4FGL J1104.4+3812','norm',[1e-16,1000e-11]) 
+
+gta.set_parameter('4FGL J1104.4+3812','alpha', value = 1.739376675, scale = 1, error =  0.006991402649, update_source = False)
+gta.set_parameter('4FGL J1104.4+3812','Eb', value = 1287.365845, scale = 1, update_source = False)
+gta.set_parameter('4FGL J1104.4+3812','beta', value = 0.01523674109, scale = 1, error = 0.002518878993, update_source = False)
+
+
+lc = gta.lightcurve(SOURCE,free_background=False,make_plots=True,shape_ts_threshold = 1000000000)
+gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
+
+fig = plt.figure(figsize=(8,6))
+plt.errorbar((lc['tmin_mjd']+lc['tmax_mjd'])/2., lc['flux'],yerr=lc['flux_err'], xerr = (lc['tmin_mjd']-lc['tmax_mjd'])/2., fmt='ko')
+plt.ylabel('Phi_{\gamma}$ [ph/cm$^2$/s]', fontsize=18)
+plt.xlabel('MJD', fontsize=18)
+plt.xticks(fontsize=18)
+plt.yticks(fontsize=18)
+plt.grid(True)
+plt.legend(loc=1,prop={'size' :16},numpoints=1,scatterpoints=1,ncol=1)
+fig.tight_layout(pad=0.5)
+plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_Photon'+'.png')
+
+fig2 = plt.figure(figsize=(8,6))
+plt.errorbar((lc['tmin_mjd']+lc['tmax_mjd'])/2., lc['eflux'], yerr=lc['eflux_err'], xerr = (lc['tmin_mjd']-lc['tmax_mjd'])/2., fmt='ko')
+plt.ylabel('Phi_{\gamma}$ [ph/cm$^2$/s]', fontsize=18)
+plt.xlabel('$t$ [s]', fontsize=18)
+plt.xticks(fontsize=18)
+plt.yticks(fontsize=18)
+plt.grid(True)
+plt.legend(loc=1,prop={'size' :16},numpoints=1,scatterpoints=1,ncol=1)
+fig.tight_layout(pad=0.5)
+plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_Energy'+'.png')
+
+print('And another one for Oliver...')
+fig3 = plt.figure(figsize=(8,6))
+bins = np.linspace(0,500,11)
+plt.hist(lc['ts'], bins, color='r', ec='k')
+plt.xlabel('TS', fontsize=18)
+fig.tight_layout(pad=0.5)
+plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_TS_Hist'+'.png')
+
+lctab = Table([lc['tmin_mjd'],lc['tmax_mjd'],lc['ts'],lc['flux'],lc['flux_err'],lc['eflux'],lc['eflux_err']])
+lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</pre></p>
+
+
+<h2 style="text-align:center;">MY PROBLEM SOLVING</h2>
+
+
+</body>
+
+</html>
