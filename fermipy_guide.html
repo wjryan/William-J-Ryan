@@ -50,7 +50,7 @@
 <h2 style="text-align:center;">THE CODE</h2>
 <p>  Here I explain each of the three main files and what you will need to be changed in order to run a succesful analysis. The original file is linked below each header. Any italicised explanations are not apart of the original file and are meant to clarify commands.</p>
 
-<h2 style="text-align:center;">A note on folder structure and file placement</h2>
+<h2 style="text-align:center;">A NOTE ON FOLDER STRUCTURE AND FILE PLACEMENT </h2>
 <p>I recommend having a parent directory that houses one folder containing your data and one folder containing all code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. You will need to create a soft-link in your code folder for the programs to access the data; however, using a soft-link will allow you to run multiple analysis using the same data files.</p>
 
 <hr>
@@ -246,9 +246,14 @@ plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_TS_Hist'+'.png')
 
 lctab = Table([lc['tmin_mjd'],lc['tmax_mjd'],lc['ts'],lc['flux'],lc['flux_err'],lc['eflux'],lc['eflux_err']])
 lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</pre></p>
+<hr>
 
+<h2 style="text-align:center;">OUTPUT FILES AND IMAGES</h2>
 
-<h2 style="text-align:center;">MY PROBLEM SOLVING</h2>
+<h3 style="text-align:center;">Counts Map</h3>
+<img src="fit_LP_counts_map_2.0000_5.710.png" alt="this is supposed to be a desription. lets see what it looks like">
+
+<h2 style="text-align:center;">PROBLEM SOLVING</h2>
 
 
 </body>
