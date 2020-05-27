@@ -3,15 +3,58 @@
 <html>
 
 </head>
-<style media="screen">
-	img {
-	            float: left;
-	            margin: 5px;
-	        }
-	        p {
-	            text-align: justify;
-	            font-size: 20px;
-	        }
+<style>
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #7300EF;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
 </style>
 <head>
 
@@ -259,18 +302,74 @@ lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</pre>
 
 <h2 style="text-align:center;">OUTPUT FILES AND IMAGES</h2>
 
-<h3 style="text-align:center;">Counts Map</h3>
-<div class="square">
+<div class="row">
 
-<img src="fit_LP_counts_map_2.000_5.710.png" align="center" width="466" height="333" border=10px>
+	  <div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Map</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
 
-<p>where is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this textwhere is this text</p>
+		<div class="column">
+			<div class="container">
+			  <img src="fit_LP_model_map_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Model Map</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
+
 </div>
 
-<img src="fit_LP_counts_map_2.000_5.710.png" align="center" width="466" height="333" border=10px>
+
+<div class="row">
+
+	  <div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_xproj_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">X Projection</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_yproj_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Y Projection</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
+
+</div>
 
 
 
+<div class="row">
+
+	  <div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_xproj_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">X Projection</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_yproj_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Y Projection</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
+
+</div>
 
 <h2 style="text-align:center;">PROBLEM SOLVING</h2>
 
