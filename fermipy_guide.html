@@ -1,9 +1,43 @@
 <!DOCTYPE html>
 
 <html>
-
-</head>
+<head>
 <style>
+
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+  }
+
+  .header h1 {
+    font-size: 50px;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
 .container {
   position: relative;
   width: 50%;
@@ -36,6 +70,11 @@
   opacity: 1;
 }
 
+mark {
+  background-color: #e2acfb;
+  color: black;
+}
+
 .text {
   background-color: #7300EF;
   color: white;
@@ -55,67 +94,92 @@
   flex: 50%;
   padding: 5px;
 }
-</style>
-<head>
 
+.card {
+  background-color:  #aaa;
+  padding: 20px;
+  margin-top: 20px;
+}
+</style>
 	<title>William_Ryan</title>
 	<meta charset="utf-8">
-
-
 </head>
-
-<nav>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="thoughts.html">Writings</a></li>
-    <li><a href="research.html">Research</a></li>
-    <li><a href="fermipy_guide.html">Fermipy Guide</a></li>
-  </ul>
-</nav>
 
 
 
 <body>
 
-<h1 style="text-align:center;">FERMIPY</h1>
+<div class="header">
+  <h1 style="text-align:center;">FERMIPY</h1>
+</div>
 
-<hr>
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="thoughts.html">Writings</a>
+  <a href="research.html">Research</a>
+  <a href="fermipy_guide.html">Fermipy Guide</a>
+</div>
 
-<p> <strong>What is FERMI?</strong><br><br>
-	Fermi is a satellite gamma ray telescope. It lives in space gathering photons and pooping out data.</p>
+<div class="card">
+  <p> <strong>What is FERMI?</strong><br><br>
+  	Fermi is a satellite gamma ray telescope. It lives in space gathering photons and pooping out data.</p>
+</div>
 
-<p> <strong>WHAT IS FERMIPY?</strong> <br><br>
-	Fermipy is a set of coding tools in python tailored to analyze data from the Fermi Large Area Telescope (FermiLAT), one of two instruments aboard the Fermi satellite. The code takes in photon data and spits out something meaningful, usually. This Guide will go over the two analysis methods I am most familiar with, SED and Lightcurve.</p>
 
-<h2 style="text-align:center;">GENERAL OVERVIEW OF THE ANALYSIS</h2>
-<p> <strong>SED Analysis</strong>:<br><br>
+<div class="card">
+  <p> <strong>WHAT IS FERMIPY?</strong> <br><br>
 
-	Given a photon has a continuous distribution of energies it could possess we can sort a source's photon data set into groups (bins) of similar energies. Each bin can be translated into a total energy, graphed, and fit with a model. This model's fancy name is a Spectral Energy Distribution or SED for short. With an SED we know how much energy is emitted from a source at a specific energy. SEDs are useful for creating a lightcurve and understanding the basic properties of the source in question.</p>
+  	Fermipy is a set of coding tools in python tailored to analyze data from the Fermi Large Area Telescope (FermiLAT), one of two instruments aboard the Fermi satellite. The code takes in photon data and spits out something meaningful, usually. This Guide will go over the two analysis methods I am most familiar with, SED and Lightcurve.</p>
+</div>
 
-<p> <strong>Lightcurve Analysis</strong>:<br><br>
+  <h1 style="text-align:center;">A GENERAL OVERVIEW OF THE ANALYSES</h1>
 
-	Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.</p>
+<div class="card">
+  <p> <strong>SED Analysis</strong>:<br><br>
 
-<h2 style="text-align:center;">THE DATA</h2>
-<p>The data for your source can be downloaded from the FERMIlat website<a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as the corrdinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe energy range where fermi is most accurate is between 100 and 513000 MeV. Maker sure the space craft file is checkmarked. The search radius is 15 degrees. After downloading the data onto your computer you can use the rsync command to transfer the files to the college server. I used to have code that would download the data directly onto the server however it does not appear to be working at the moment. Nonethless I will link the file here</p>
+  	Given a photon has a continuous distribution of energies it could possess we can sort a source's photon data set into groups (bins) of similar energies. Each bin can be translated into a total energy, graphed, and fit with a model. This model's fancy name is a Spectral Energy Distribution or SED for short. With an SED we know how much energy is emitted from a source at a specific energy. SEDs are useful for creating a lightcurve and understanding the basic properties of the source in question.</p>
+</div>
 
-<h2 style="text-align:center;">THE CODE</h2>
-<p>  Here I explain each of the three main files and what you will need to be changed in order to run a succesful analysis. The original file is linked below each header. Any italicised explanations are not apart of the original file and are meant to clarify commands.</p>
+<div class="card">
+  <p> <strong>Lightcurve Analysis</strong>:<br><br>
 
-<h2 style="text-align:center;">A NOTE ON FOLDER STRUCTURE AND FILE PLACEMENT </h2>
-<p>I recommend having a parent directory that houses one folder containing your data and one folder containing all code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. You will need to create a soft-link in your code folder for the programs to access the data; however, using a soft-link will allow you to run multiple analysis using the same data files.</p>
+  	Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.</p>
+</div>
 
-<hr>
-<p> <strong>config.yaml</strong>:<br>
-<a href="config.yaml">View</a><br>
-<a href="config.yaml" download>Download</a><br>
-	This is the configuration file where a majority of your source information, file paths, and analysis parameters will be inputed. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/config.html">link<a>. Everything highlighted <mark>yellow</mark> marks the least number of changes required to run your analysis</p>
-<hr>
-	<p><i>First note that their are no tabs within this config.yaml. Eveything is spaced by spacebar spaces. The program can not handle tabs and will raise an error if a tab present. Using enter to move to a new line is fine.</i></p>
+<div class="card">
+  <p> <strong>The Data</strong>:<br><br>
+
+  <p>The data for your source can be downloaded from the FermiLAT website <a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as the corrdinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe energy range where fermi is most accurate is between 100 and 513000 MeV. Maker sure the space craft file is checkmarked. The search radius is 15 degrees. After downloading the data onto your computer you can use the rsync command to transfer the files to the college server. I used to have code that would download the data directly onto the server however it does not appear to be working at the moment. Nonethless I will link the file here</p>
+</div>
+
+<h1 style="text-align:center;">THE CODE</h1>
+
+<div class="card">
+
+  <p>  Here I explain each of the three main files and what you will need to be changed in order to run a succesful analysis. The original file is linked below each header. Any italicised explanations are not apart of the original file and are meant to clarify commands. Anything highlighted <mark>purple</mark> means one of two things. One, you <b>need to change the code</b> for your analysis. Or two, a necessary piece of problem solving code. This code can be changed but is not recommended. </p>
+</div>
+
+<div class="card">
+  <p> <strong>A Note On Folder Structure And File Placement</strong>:<br><br>
+
+  <p>I recommend having a parent directory that houses one folder containing your data and one folder containing all code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. You will need to create a soft-link in your code folder for the programs to access the data; however, using a soft-link will allow you to run multiple analysis using the same data files.</p>
+</div>
+
+
+
+<div class="card">
+  <h1 style="text-align:center;">config.yaml</h1>
+  <a href="config.yaml">View</a><br>
+  <a href="config.yaml" download>Download</a><br>
+
+  	<p>This is the configuration file where a majority of your source information, file paths, and analysis parameters will be inputed. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/config.html">link<a>.</p>
+</div>
+
+	<p>First note that their are no tabs within this config.yaml. Eveything is spaced by spacebar spaces. The program can not handle tabs and will raise an error if a tab present. Using enter to move to a new line is fine.</p>
 
 <pre>
 data:
-</pre><p><i> Here we have the paths to the data we will use in the analysis. A soft link to the data folder should be created within the same folder as the code in order for everything to function correctly. The text file within the data folder will be something you will have to create. It contains the path to each individual photon data file. You can take a look at the format through this hyperlink.</i></p><pre>
+</pre><p> Here we have the paths to the data we will use in the analysis. A soft link to the data folder should be created within the same folder as the code in order for everything to function correctly. The text file within the data folder will be something you will have to create. It contains the path to each individual photon data file. You can take a look at the format through this hyperlink.</p><pre>
       <mark>evfile : 'data/<a href="mrk421_binned_events.txt">mrk421_binned_events.txt</a>'</mark>
       <mark>scfile : 'data/mrk421_SC00.fits'</mark>
 
@@ -128,12 +192,12 @@ selection:
       emin : 100
       emax : 513000
       zmax : 90
-</pre><p><i> These <b>tmin tmax</b> values designate the start and end time of your analysis. They are formatted in <b>fermi seconds</b> and a time converter can be found <a href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">here<a></i></p><pre>
+</pre><p> These <b>tmin tmax</b> values designate the start and end time of your analysis. They are formatted in <b>fermi seconds</b> and a time converter can be found <a href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">here<a></p><pre>
       <mark>tmin : 239599263.000000</mark>
       <mark>tmax : 263677795.000000</mark>
       evclass : 128
       evtype : 3
-</pre><p><i> Ra stands for Right Ascension and Dec stand for Declination. These are the corrdinates of your source. And the target is the name of your source as found in the catalog </i></p><pre>
+</pre><p> Ra stands for Right Ascension and Dec stand for Declination. These are the corrdinates of your source. And the target is the name of your source as found in the catalog </p><pre>
       <mark>ra : 166.113808</mark>
       <mark>dec : 38.208833</mark>
       <mark>target : 'mkn 421'</mark>
@@ -155,7 +219,7 @@ model:
       catalogs : ['4FGL']
 
 fileio:
-</pre><p><i>The outdir is the name of the directory that the output files will be placed. If the folder does not exist when either sed.py or ltcurve.py is run then the folder will be automatically created. The fermipy.log is is like a text file that contains some of the programs messages including error messages. It is also created when a program is run and will be added to if the program is run again. If you are having problems I would recommend renaming fermipi.log after each run so you can distinguish run errors if they appear</i></p><pre>
+</pre><p>The outdir is the name of the directory that the output files will be placed. If the folder does not exist when either sed.py or ltcurve.py is run then the folder will be automatically created. The fermipy.log is is like a text file that contains some of the programs messages including error messages. It is also created when a program is run and will be added to if the program is run again. If you are having problems I would recommend renaming fermipi.log after each run so you can distinguish run errors if they appear</p><pre>
       <mark>outdir : 'output'</mark>
       <mark>logfile : fermipy.log</mark>
 
@@ -171,12 +235,15 @@ sed:
       make_plots : True
       free_background : True
 </pre>
-<hr>
 
-<p> <strong>sed.py</strong>:<br>
-<a href="sed.py">View</a><br>
-<a href="sed.py" download>Download</a><br>
-<hr>
+
+
+<div class="card">
+  <h1 style="text-align:center;">sed.py</h1>
+  <a href="sed.py">View</a><br>
+  <a href="sed.py" download>Download</a><br>
+</div>
+
 <pre>
 #!/usr/bin/env python2.7
 
@@ -190,43 +257,47 @@ from astropy.table import Table, Column
 import astropy.io.fits as pyfits
 import yaml
 
-plt.switch_backend('agg')
+<mark>plt.switch_backend('agg')</mark>
 
-config = yaml.load(open('config.yaml'))
+config = yaml.load(open(<mark>'config.yaml'</mark>))
 SOURCE = config['selection']['target']
 DIR = config['fileio']['outdir']
 LCDIR = config['lightcurve']['outdir']
 
-gta = GTAnalysis('config.yaml', logging={'verbosity':3})
+gta = GTAnalysis(<mark>'config.yaml'</mark>, logging={'verbosity':3})
 matplotlib.interactive(True)
 gta.setup()
 
 gta.print_model()
 print(gta.roi[SOURCE])
 
-gta.free_sources(minmax_ts = [9,1600000])
+<mark>gta.free_sources(minmax_ts = [9,1600000])</mark>
 
 fit_results = gta.fit()
 gta.print_model()
 print(gta.roi[SOURCE])
-gta.write_roi('fit_LP', make_plots=True,save_model_map=True)
-tsmap = gta.tsmap(prefix='TSmap_fit_LP', make_plots=True)
-resid = gta.residmap('Residuals_fit_LP',make_plots=True)
+gta.write_roi(<mark>'fit_LP'</mark>, make_plots=True,save_model_map=True)
+tsmap = gta.tsmap(prefix=<mark>'TSmap_fit_LP'</mark>, make_plots=True)
+resid = gta.residmap(<mark>'Residuals_fit_LP'</mark>,make_plots=True)
 
 gta.print_model()
 gta.print_params(allpars=True)
 gta.print_roi()
 
-gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
+gta.residmap(prefix = <mark>'weighted_residuals'</mark>, make_plots = True, use_weights = True)
 
-sed = gta.sed(SOURCE,prefix='SED_fit_LP', bin_index = 1.72304034233, free_background = True, cov_scale = None,free_pars=['norm','alpha','beta'])
+<mark>sed = gta.sed(SOURCE,prefix='SED_fit_LP', bin_index = 1.72304034233, free_background = True, cov_scale = None,free_pars=['norm','alpha','beta'])</mark>
 
 gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
-<hr>
-<p> <strong>ltcurve.py</strong>:<br>
-<a href="ltcurve.py">View</a><br>
-<a href="sed.py" download>Download</a><br>
-<hr>
+
+
+
+<div class="card">
+  <h1 style="text-align:center;">ltcurve.py</h1>
+  <a href="ltcurve.py">View</a><br>
+  <a href="sed.py" download>Download</a><br>
+</div>
+
 <pre>
 #!/usr/bin/env python2.7
 
@@ -254,54 +325,26 @@ gta.setup()
 gta.print_model()
 print(gta.roi[SOURCE])
 
+<mark>gta.set_parameter('4FGL J1104.4+3812','norm',value = 1.721997147e-11, scale = 1, error = 0.01313677393e-11, update_source = False)</mark>
+<mark>gta.set_parameter_bounds('4FGL J1104.4+3812','norm',[1e-16,1000e-11])</mark>
 
-gta.set_parameter('4FGL J1104.4+3812','norm',value = 1.721997147e-11, scale = 1, error = 0.01313677393e-11, update_source = False)
-gta.set_parameter_bounds('4FGL J1104.4+3812','norm',[1e-16,1000e-11])
+<mark>gta.set_parameter('4FGL J1104.4+3812','alpha', value = 1.739376675, scale = 1, error =  0.006991402649, update_source = False)</mark>
+<mark>gta.set_parameter('4FGL J1104.4+3812','Eb', value = 1287.365845, scale = 1, update_source = False)</mark>
+<mark>gta.set_parameter('4FGL J1104.4+3812','beta', value = 0.01523674109, scale = 1, error = 0.002518878993, update_source = False)</mark>
 
-gta.set_parameter('4FGL J1104.4+3812','alpha', value = 1.739376675, scale = 1, error =  0.006991402649, update_source = False)
-gta.set_parameter('4FGL J1104.4+3812','Eb', value = 1287.365845, scale = 1, update_source = False)
-gta.set_parameter('4FGL J1104.4+3812','beta', value = 0.01523674109, scale = 1, error = 0.002518878993, update_source = False)
-
-
-lc = gta.lightcurve(SOURCE,free_background=False,make_plots=True,shape_ts_threshold = 1000000000)
+lc = gta.lightcurve(SOURCE,free_background=False,make_plots=True,<mark>shape_ts_threshold = 1000000000</mark>)
 gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 
-fig = plt.figure(figsize=(8,6))
-plt.errorbar((lc['tmin_mjd']+lc['tmax_mjd'])/2., lc['flux'],yerr=lc['flux_err'], xerr = (lc['tmin_mjd']-lc['tmax_mjd'])/2., fmt='ko')
-plt.ylabel('Phi_{\gamma}$ [ph/cm$^2$/s]', fontsize=18)
-plt.xlabel('MJD', fontsize=18)
-plt.xticks(fontsize=18)
-plt.yticks(fontsize=18)
-plt.grid(True)
-plt.legend(loc=1,prop={'size' :16},numpoints=1,scatterpoints=1,ncol=1)
-fig.tight_layout(pad=0.5)
-plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_Photon'+'.png')
+<mark>lctab = Table([lc['tmin_mjd'],lc['tmax_mjd'],lc['ts'],lc['flux'],lc['flux_err'],lc['eflux'],lc['eflux_err']])</mark>
+<mark>lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</mark>
+</pre>
 
-fig2 = plt.figure(figsize=(8,6))
-plt.errorbar((lc['tmin_mjd']+lc['tmax_mjd'])/2., lc['eflux'], yerr=lc['eflux_err'], xerr = (lc['tmin_mjd']-lc['tmax_mjd'])/2., fmt='ko')
-plt.ylabel('Phi_{\gamma}$ [ph/cm$^2$/s]', fontsize=18)
-plt.xlabel('$t$ [s]', fontsize=18)
-plt.xticks(fontsize=18)
-plt.yticks(fontsize=18)
-plt.grid(True)
-plt.legend(loc=1,prop={'size' :16},numpoints=1,scatterpoints=1,ncol=1)
-fig.tight_layout(pad=0.5)
-plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_Energy'+'.png')
 
-print('And another one for Oliver...')
-fig3 = plt.figure(figsize=(8,6))
-bins = np.linspace(0,500,11)
-plt.hist(lc['ts'], bins, color='r', ec='k')
-plt.xlabel('TS', fontsize=18)
-fig.tight_layout(pad=0.5)
-plt.savefig(DIR+'/'+LCDIR+'_LightCurve'+'_TS_Hist'+'.png')
 
-lctab = Table([lc['tmin_mjd'],lc['tmax_mjd'],lc['ts'],lc['flux'],lc['flux_err'],lc['eflux'],lc['eflux_err']])
-lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</pre>
-<hr>
-
-<h2 style="text-align:center;">OUTPUT FILES AND IMAGES</h2>
+<div class="card">
+<h2 style="text-align:center;">OUTPUT IMAGES</h2>
 <p align="center">Hover mouse over images</p>
+</div>
 
 <div class="row">
 
