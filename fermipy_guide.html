@@ -264,6 +264,7 @@ sed:
   <h1 style="text-align:center;">sed.py</h1>
   <a href="sed.py">View</a><br>
   <a href="sed.py" download>Download</a><br>
+  <p> This analysis will have to be run twice. The first run will give you a <b>bin_index</b> that you will use to perform the second analysis. After the first analysis look for <b>srcmdl_00.xml</b> in the output directory. Within this file lies the new <b>bin_index</b> value. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/advanced/sed.html#">link<a>.</p>
 </div>
 
 <pre>
@@ -279,8 +280,10 @@ from astropy.table import Table, Column
 import astropy.io.fits as pyfits
 import yaml
 
+</pre><p>This makes matplotlib function correctly.</p><pre>
 <mark>plt.switch_backend('agg')</mark>
 
+</pre><p>If you named your configuration file differently change it here.</p><pre>
 config = yaml.load(open(<mark>'config.yaml'</mark>))
 SOURCE = config['selection']['target']
 DIR = config['fileio']['outdir']
@@ -293,11 +296,13 @@ gta.setup()
 gta.print_model()
 print(gta.roi[SOURCE])
 
+</pre><p>Sources with too little significance can screw up the analysis. This freezes all sources with less than 3 sigma significance.</p><pre>
 <mark>gta.free_sources(minmax_ts = [9,1600000])</mark>
 
 fit_results = gta.fit()
 gta.print_model()
 print(gta.roi[SOURCE])
+</pre><p>You can name the output files whatever you want by changing the names here.</p><pre>
 gta.write_roi(<mark>'fit_LP'</mark>, make_plots=True,save_model_map=True)
 tsmap = gta.tsmap(prefix=<mark>'TSmap_fit_LP'</mark>, make_plots=True)
 resid = gta.residmap(<mark>'Residuals_fit_LP'</mark>,make_plots=True)
@@ -306,8 +311,9 @@ gta.print_model()
 gta.print_params(allpars=True)
 gta.print_roi()
 
-gta.residmap(prefix = <mark>'weighted_residuals'</mark>, make_plots = True, use_weights = True)
+gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
 
+</pre><p>By default the <b>bin_index</b> is set to 2. After running the analysis once the output file will contain a new <b>bin_index</b> that you will specify here and run another analysis. Depending on the model you are using you will have to specify the <b>free_pars</b> of the source here. The <b>cov_scale</b> parameter is a "Scale factor that sets the strength of the prior on nuisance parameters that are free. Setting this to None disables the prior." I remember this parameter solved a problem I was having but I do not remember what that problem was. Though it was most likely a minimizer convergence failure.</p><pre>
 <mark>sed = gta.sed(SOURCE,prefix='SED_fit_LP', bin_index = 1.72304034233, free_background = True, cov_scale = None,free_pars=['norm','alpha','beta'])</mark>
 
 gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
@@ -318,6 +324,7 @@ gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
   <h1 style="text-align:center;">ltcurve.py</h1>
   <a href="ltcurve.py">View</a><br>
   <a href="sed.py" download>Download</a><br>
+  <p>After inputing the parameter values for the main target found in the SED analysis and freeing the appropriate sources you can run this analysis. Then you can use <b>source_lightcurve.fits</b> within the output folder to graph the ltcurve. Make sure you clean the data of any <b>nan</b> values at this point.</p>
 </div>
 
 <pre>
@@ -335,18 +342,19 @@ import yaml
 
 plt.switch_backend('agg')
 
-config = yaml.load(open('config1.yaml'))
+config = yaml.load(open('config.yaml'))
 SOURCE = config['selection']['target']
 DIR = config['fileio']['outdir']
 LCDIR = config['lightcurve']['outdir']
 
-gta = GTAnalysis('config1.yaml', logging={'verbosity':3})
+gta = GTAnalysis('config.yaml', logging={'verbosity':3})
 matplotlib.interactive(True)
 gta.setup()
 
 gta.print_model()
 print(gta.roi[SOURCE])
 
+</pre><p>These values are located within the same file as the <b>bin_index</b>. The value and error, except for the norm, of each parameter must be given. Depending on the model you are using the names and number of parameters will differ.</p><pre>
 <mark>gta.set_parameter('4FGL J1104.4+3812','norm',value = 1.721997147e-11, scale = 1, error = 0.01313677393e-11, update_source = False)</mark>
 <mark>gta.set_parameter_bounds('4FGL J1104.4+3812','norm',[1e-16,1000e-11])</mark>
 
@@ -354,18 +362,22 @@ print(gta.roi[SOURCE])
 <mark>gta.set_parameter('4FGL J1104.4+3812','Eb', value = 1287.365845, scale = 1, update_source = False)</mark>
 <mark>gta.set_parameter('4FGL J1104.4+3812','beta', value = 0.01523674109, scale = 1, error = 0.002518878993, update_source = False)</mark>
 
-lc = gta.lightcurve(SOURCE,free_background=False,make_plots=True,<mark>shape_ts_threshold = 1000000000</mark>)
+</pre><p><b>IMPORTANT</b>: You will have to use <b>gta.free_source()</b> in order to free and freeze the same sources that were freed and frozen during your SED analysis. You can place that code here.</p><pre>
+</pre><p> Depending on how large your errors are you may or may not want to free the background. The <b>shape_ts_threshold</b> sets the TS threshold at which shape parameters of sources will be freed. This can be problematic when you have already input your free and frozen sources as this command takes priority. I set the value arbitrarily large so it does not free any sources I do not want it too.<pre><p>
+lc = gta.lightcurve(SOURCE,<mark>free_background=False</mark>,make_plots=True,<mark>shape_ts_threshold = 1000000000</mark>)
 gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 
+</pre><p>This makes an ascii data file of all the major values you will need to graph your LightCurve. However, I use the <b>source_lightcurve.fits</b> file within the output folder to do my graphing.</p><pre>
 <mark>lctab = Table([lc['tmin_mjd'],lc['tmax_mjd'],lc['ts'],lc['flux'],lc['flux_err'],lc['eflux'],lc['eflux_err']])</mark>
 <mark>lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</mark>
 </pre>
 
 
 
+<h1 style="text-align:center;">OUTPUT IMAGES: work in progress</h1>
 <div class="card">
-<h2 style="text-align:center;">OUTPUT IMAGES</h2>
-<p align="center">Hover mouse over images</p>
+  <h2 style="text-align:center;">Hover Mouse Over Images</h2>
+  <p>The images created during an analysis help us visual a source's properties and help us see any potential probelms with the analysis.</p>
 </div>
 
 
@@ -479,7 +491,17 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 
 
 
-<h2 style="text-align:center;">PROBLEM SOLVING</h2>
+<h1 style="text-align:center;">PROBLEM SOLVING: work in progress</h1>
+<div class="card">
+  <h2>Recomendations</h2>
+  <p>If you have a large data set, break the analysis into chunks to quicken computaion time and to buffer your analysis from computational failure.</p>
+  <h2>Redoing a ltcurve analysis</h2>
+  <p>If you need to change any parameters delete all output files before restarting. Sadly the previous parameters are hardwired within the output files. It is supposed to be designed so large chunks of computaion do not have to be redone, but oh well you still have to.</p>
+  <h2>Markarian 421 specific time cuts.</h2>
+  <p>ltcurve crashes and output is irrecoverable. GTI solutions, and Skip solutions, and fermilat down solutions</p>
+</div>
+
+
 
 </body>
 
