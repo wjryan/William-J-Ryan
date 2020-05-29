@@ -110,7 +110,7 @@ mark {
 <body>
 
 <div class="header">
-  <h1 style="text-align:center;">FERMIPY</h1>
+  <h1 style="text-align:center;">FERMIPY GUIDE</h1>
 </div>
 
 <div class="topnav">
@@ -121,13 +121,25 @@ mark {
 </div>
 
 <div class="card">
+  <p> <strong>What is this Guide?</strong><br><br>
+    This guide is a record of my trials and tribulations with the coding abomination that is FERMIPY. While the code is fairly straightforward many issues can arise during an analysis using FERMIPY. These issues often come with minimal explanations and can be tricky to solve. My goal is to walk you through an ideal SED and LightCurve analysis while also providing information on regualar issues and solutions I have faced. I have dedicated the last section of this guide to the toughest workarounds I have had to devise in order to succesfully run the code.</p><p>Good Luck!</p>
+</div>
+
+<br>
+<center>
+  <div class="container">
+  	<img src="its-dangerous-to-go-alone-take-this[1].jpg" class="image" style="width:100%">
+  </div>
+</center>
+
+<div class="card">
   <p> <strong>What is FERMI?</strong><br><br>
   	Fermi is a satellite gamma ray telescope. It lives in space gathering photons and pooping out data.</p>
 </div>
 
 
 <div class="card">
-  <p> <strong>WHAT IS FERMIPY?</strong> <br><br>
+  <p> <strong>What Is FERMIPY?</strong> <br><br>
 
   	Fermipy is a set of coding tools in python tailored to analyze data from the Fermi Large Area Telescope (FermiLAT), one of two instruments aboard the Fermi satellite. The code takes in photon data and spits out something meaningful, usually. This Guide will go over the two analysis methods I am most familiar with, SED and Lightcurve.</p>
 </div>
@@ -169,14 +181,14 @@ mark {
 <div class="card">
   <p> <strong>The Data</strong>:<br><br>
 
-  <p>The data for your source can be downloaded from the FermiLAT website <a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as the corrdinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe energy range where fermi is most accurate is between 100 and 513000 MeV. Maker sure the space craft file is checkmarked. The search radius is 15 degrees. After downloading the data onto your computer you can use the rsync command to transfer the files to the college server. I used to have code that would download the data directly onto the server however it does not appear to be working at the moment. Nonethless I will link the file here</p>
+  <p>The data for your source can be downloaded from the FermiLAT website <a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as your cordinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe and most accurate energy range for Fermi is between 100 and 513000 MeV. Make sure the space craft file box is checkmarked. The search radius is 15 degrees. After downloading the data onto your computer you can use the rsync command to transfer the files to the college server. I used to have code that would download the data directly onto the server however it does not appear to be working at the moment. Nonethless I will link the file here</p>
 </div>
 
 <h1 style="text-align:center;">THE CODE</h1>
 
 <div class="card">
 
-  <p>  Here I explain each of the three main files and what you will need to be change in order to run a succesful analysis. The original file is linked below each header. Any highlighting means one of two things. Either it is a piece of code that <b>needs to be changed</b> for your analysis or it is a solution to a probelem I encountered.</p>
+  <p>  Here I explain each of the three main files and what you will need to be change in order to run a succesful analysis. The original file is linked below each header. Any highlighting means one of two things. Either it is a piece of code that <b>needs to be changed</b> for your analysis or it is a solution to a problem I have encountered.</p>
 </div>
 
 <div class="card">
@@ -201,7 +213,7 @@ mark {
 
 <pre>
 data:
-</pre><p> Here we have the paths to the data we will use in the analysis. The text file within the data folder will be something <b>you will have to create</b>. It contains the path to each individual photon data file. You can take a look at the format through the hyperlin below.</p><pre>
+</pre><p> Here we have the paths to the data we will use in the analysis. The text file within the data folder will be something <b>you will have to create</b>. It contains the path to each individual photon data file. You can take a look at the format through the hyperlink below.</p><pre>
       <mark>evfile : 'data/<a href="mrk421_binned_events.txt">mrk421_binned_events.txt</a>'</mark>
       <mark>scfile : 'data/mrk421_SC00.fits'</mark>
 
@@ -219,7 +231,7 @@ selection:
       <mark>tmax : 263677795.000000</mark>
       evclass : 128
       evtype : 3
-</pre><p> <b>Ra</b> stands for Right Ascension and <b>Dec</b> stand for Declination. These are the sky corrdinates of your source. The <b>target</b> is the name of your source as found in the catalog.</p><pre>
+</pre><p> <b>Ra</b> stands for Right Ascension and <b>Dec</b> stand for Declination. These are the sky coordinates of your source. The <b>target</b> is the name of your source as found in the official catalog (link website here, ask olivier as I have forgoten the website).</p><pre>
       <mark>ra : 166.113808</mark>
       <mark>dec : 38.208833</mark>
       <mark>target : 'mkn 421'</mark>
@@ -386,6 +398,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 	  <div class="column">
 			<div class="container">
 			  <img src="fit_LP_counts_map_2.000_5.710.png" class="image" style="width:175%">
+        <p>oh my wow oh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wow</p>
 			  <div class="middle">
 			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Map</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
 			  </div>
