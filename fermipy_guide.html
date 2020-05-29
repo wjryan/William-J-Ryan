@@ -140,11 +140,31 @@ mark {
   	Given a photon has a continuous distribution of energies it could possess we can sort a source's photon data set into groups (bins) of similar energies. Each bin can be translated into a total energy, graphed, and fit with a model. This model's fancy name is a Spectral Energy Distribution or SED for short. With an SED we know how much energy is emitted from a source at a specific energy. SEDs are useful for creating a lightcurve and understanding the basic properties of the source in question.</p>
 </div>
 
+<center>
+  <div class="container">
+  	<img src="SED_fit_LP_4fgl_j1104.4+3812_sed.png" class="image" style="width:100%">
+  	 <div class="middle">
+  		<div class="text" style="width:100%"><h3 style="text-align:left;">SED</h3>
+      </div>
+  	</div>
+  </div>
+</center>
+
 <div class="card">
   <p> <strong>Lightcurve Analysis</strong>:<br><br>
 
   	Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.</p>
 </div>
+
+
+  <div class="container">
+  	<img src="Fermi_bayesian_block_Mrk_421-1.png" class="image" style="width:200%">
+  	 <div class="middle">
+  		<div class="text" style="width:200%"><h3 style="text-align:left;">Lightcurve</h3> This is a 1-day binned lightcurve of Markarian 421. The data is colored blue and the Bayesian Blocks are colored yellow.
+      </div>
+  	</div>
+  </div>
+
 
 <div class="card">
   <p> <strong>The Data</strong>:<br><br>
@@ -156,13 +176,15 @@ mark {
 
 <div class="card">
 
-  <p>  Here I explain each of the three main files and what you will need to be changed in order to run a succesful analysis. The original file is linked below each header. Any italicised explanations are not apart of the original file and are meant to clarify commands. Anything highlighted <mark>purple</mark> means one of two things. One, you <b>need to change the code</b> for your analysis. Or two, a necessary piece of problem solving code. This code can be changed but is not recommended. </p>
+  <p>  Here I explain each of the three main files and what you will need to be change in order to run a succesful analysis. The original file is linked below each header. Any highlighting means one of two things. Either it is a piece of code that <b>needs to be changed</b> for your analysis or it is a solution to a probelem I encountered.</p>
 </div>
 
 <div class="card">
   <p> <strong>A Note On Folder Structure And File Placement</strong>:<br><br>
 
-  <p>I recommend having a parent directory that houses one folder containing your data and one folder containing all code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. You will need to create a soft-link in your code folder for the programs to access the data; however, using a soft-link will allow you to run multiple analysis using the same data files.</p>
+  <p>I recommend having a parent directory that houses a folder containing your data and a folder containing your code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. Given my recommendation you will need to create a soft-link to your data from your code folder; however, using a soft-link will allow you to run multiple analyses using the same data files. Below is a visual representaion of your file structure.</p>
+
+  <img src="filestree-1.jpg" class="image" style="width:50%">
 </div>
 
 
@@ -172,14 +194,14 @@ mark {
   <a href="config.yaml">View</a><br>
   <a href="config.yaml" download>Download</a><br>
 
-  	<p>This is the configuration file where a majority of your source information, file paths, and analysis parameters will be inputed. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/config.html">link<a>.</p>
+  	<p>The configuration file is where a majority of your source information, file paths, and analysis parameters will be inputed. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/config.html">link<a>.</p>
 </div>
 
-	<p>First note that their are no tabs within this config.yaml. Eveything is spaced by spacebar spaces. The program can not handle tabs and will raise an error if a tab present. Using enter to move to a new line is fine.</p>
+	<p>First note that their are only spaces and no tabs within this configuration file. The program can not handle tabs and will raise an error if a tab present. Using enter to move to a new line is fine.</p>
 
 <pre>
 data:
-</pre><p> Here we have the paths to the data we will use in the analysis. A soft link to the data folder should be created within the same folder as the code in order for everything to function correctly. The text file within the data folder will be something you will have to create. It contains the path to each individual photon data file. You can take a look at the format through this hyperlink.</p><pre>
+</pre><p> Here we have the paths to the data we will use in the analysis. The text file within the data folder will be something <b>you will have to create</b>. It contains the path to each individual photon data file. You can take a look at the format through the hyperlin below.</p><pre>
       <mark>evfile : 'data/<a href="mrk421_binned_events.txt">mrk421_binned_events.txt</a>'</mark>
       <mark>scfile : 'data/mrk421_SC00.fits'</mark>
 
@@ -197,7 +219,7 @@ selection:
       <mark>tmax : 263677795.000000</mark>
       evclass : 128
       evtype : 3
-</pre><p> Ra stands for Right Ascension and Dec stand for Declination. These are the corrdinates of your source. And the target is the name of your source as found in the catalog </p><pre>
+</pre><p> <b>Ra</b> stands for Right Ascension and <b>Dec</b> stand for Declination. These are the sky corrdinates of your source. The <b>target</b> is the name of your source as found in the catalog.</p><pre>
       <mark>ra : 166.113808</mark>
       <mark>dec : 38.208833</mark>
       <mark>target : 'mkn 421'</mark>
@@ -219,14 +241,14 @@ model:
       catalogs : ['4FGL']
 
 fileio:
-</pre><p>The outdir is the name of the directory that the output files will be placed. If the folder does not exist when either sed.py or ltcurve.py is run then the folder will be automatically created. The fermipy.log is is like a text file that contains some of the programs messages including error messages. It is also created when a program is run and will be added to if the program is run again. If you are having problems I would recommend renaming fermipi.log after each run so you can distinguish run errors if they appear</p><pre>
+</pre><p>The <b>outdir</b> is the directory that all output files will be placed. If the folder does not exist when either sed.py or ltcurve.py is run then the folder will be created automatically. The <b>fermipy.log</b> is a text file that contains program messages including errors.</p><pre>
       <mark>outdir : 'output'</mark>
       <mark>logfile : fermipy.log</mark>
 
 
 lightcurve:
       make_plots : True
-</pre><p><i>When running ltcurve.py the analysis run on each bin will be placed within the outdir specified here. In turn that folder will be placed in the fileio outdir. The binsz specifies the size of the time bins you wish to use when creating the light-curve.</i></p><pre>
+</pre><p>While running ltcurve.py the program will place the output files of each time bin into the <b>outdir</b> specified here. This <b>outdir</b> will be placed in the <b>fileio outdir</b>. The <b>binsz</b> specifies the time bin size, in seconds, for, the lightcurve analysis.</p><pre>
       <mark>outdir : 'ltcurve_files'</mark>
       <mark>binsz : 84600.0 #1 days</mark>
       free_background : True
@@ -346,6 +368,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 <p align="center">Hover mouse over images</p>
 </div>
 
+
 <div class="row">
 
 	  <div class="column">
@@ -362,6 +385,30 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			  <img src="fit_LP_model_map_2.000_5.710.png" class="image" style="width:175%">
 			  <div class="middle">
 			    <div class="text" style="width:260%"><h3 style="text-align:left;">Model Map</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
+
+</div>
+
+
+
+<div class="row">
+
+	  <div class="column">
+			<div class="container">
+			  <img src="Residuals_fit_LP_pointsource_powerlaw_2.00_residmap_excess.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Residual</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container">
+			  <img src="Residuals_fit_LP_pointsource_powerlaw_2.00_residmap_sigma.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Sigma Residual</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
 			  </div>
 			</div>
 		</div>
@@ -392,14 +439,16 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 </div>
 
 
+
 <center>
-<div class="container">
-	<img src="fit_LP_counts_spectrum.png" class="image" style="width:100%">
-	 <div class="middle">
-		<div class="text" style="width:260%"><h3 style="text-align:left;">Spectrum Fit</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
-	</div>
-</div>
+  <div class="container">
+  	<img src="fit_LP_counts_spectrum.png" class="image" style="width:100%">
+  	 <div class="middle">
+  		<div class="text" style="width:100%"><h3 style="text-align:left;">Spectrum Fit</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+  	</div>
+  </div>
 </center>
+
 
 
 <div class="row">
@@ -423,6 +472,12 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 		</div>
 
 </div>
+
+
+
+
+
+
 
 <h2 style="text-align:center;">PROBLEM SOLVING</h2>
 
