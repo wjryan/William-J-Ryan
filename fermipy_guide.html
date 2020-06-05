@@ -194,7 +194,7 @@ mark {
 <div class="card">
   <p> <strong>A Note On Folder Structure And File Placement</strong>:<br><br>
 
-  <p>I recommend having a parent directory that houses a folder containing your data and a folder containing your code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. Given my recommendation you will need to create a soft-link to your data from your code folder; however, using a soft-link will allow you to run multiple analyses using the same data files. Below is a visual representaion of your file structure.</p>
+  <p>I recommend having a parent directory that houses a folder containing your data and a folder containing your code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. Given my recommendation you will need to create a soft-link to your data from your code folder; however, using a soft-link will allow you to run multiple analyses using the same data files. Below is a visual representaion of your file structure. <b>Do not use the rm command to delete a softlink. That will delete all of your data. Instead, use the unlink command.</b></p>
 
   <img src="filestree-1.jpg" class="image" style="width:50%">
 </div>
@@ -336,7 +336,7 @@ gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
   <h1 style="text-align:center;">ltcurve.py</h1>
   <a href="ltcurve.py">View</a><br>
   <a href="sed.py" download>Download</a><br>
-  <p>After inputing the parameter values for the main target found in the SED analysis and freeing the appropriate sources you can run this analysis. Then you can use <b>source_lightcurve.fits</b> within the output folder to graph the ltcurve. Make sure you clean the data of any <b>nan</b> values at this point.</p>
+  <p>After inputing the parameter values for the main target found in the SED analysis and freeing the appropriate sources you can run this analysis. Then you can use <b>source_lightcurve.fits</b> within the output folder to graph the ltcurve (PLACE PYTHON FILE USED TO GRAPH POINTS HERE). Make sure you clean the data of any <b>nan</b> values at this point.</p>
 </div>
 
 <pre>
@@ -386,10 +386,10 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 
 
 
-<h1 style="text-align:center;">OUTPUT IMAGES: work in progress</h1>
+<h1 style="text-align:center;">OUTPUT IMAGES</h1>
 <div class="card">
   <h2 style="text-align:center;">Hover Mouse Over Images</h2>
-  <p>The images created during an analysis help us visual a source's properties and help us see any potential probelms with the analysis.</p>
+  <p>The images created during an analysis help us visual a source's properties and help us see any potential probelms with the analysis. Below are what I believe to be the most important images. Other images will be created and have their own usefull information however the below images have the most pertinent information.</p>
 </div>
 
 
@@ -398,9 +398,8 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 	  <div class="column">
 			<div class="container">
 			  <img src="fit_LP_counts_map_2.000_5.710.png" class="image" style="width:175%">
-        <p>oh my wow oh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wowoh my wow</p>
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Map</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Map</h3> This image plots the number of counts per sky bin. This is what the Fermi sattelite sees.</div>
 			  </div>
 			</div>
 		</div>
@@ -409,7 +408,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="fit_LP_model_map_2.000_5.710.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">Model Map</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Model Map</h3> Each source has its own model in the catalog. This image is a compilation of every model of each source in the field of view.</div>
 			  </div>
 			</div>
 		</div>
@@ -424,7 +423,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="Residuals_fit_LP_pointsource_powerlaw_2.00_residmap_excess.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Residual</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Residual</h3> Subtracting the model map from the counts map gives us a value called the residual. Given a perfect model the residual would be zero. This image acts as measure of model fitness. I believe this map has twenty thousand counts, so a residual that variates from -150 to 100 is very good</div>
 			  </div>
 			</div>
 		</div>
@@ -433,7 +432,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="Residuals_fit_LP_pointsource_powerlaw_2.00_residmap_sigma.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">Sigma Residual</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Sigma Residual</h3>This image tells us how significant the residual fluxuations are. Anything between 0 and 2 sigma is statisticly due to a random fluxuation in the night sky (stochastic noise). Even the occasional 3 sigma variation can be stochastic noise.</div>
 			  </div>
 			</div>
 		</div>
@@ -447,7 +446,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="fit_LP_counts_map_xproj_2.000_5.710.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">X Projection</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">X Projection</h3>This images stacks all the counts along one axis. It is like viewing the source from the side. It is a good sign when the blue model and the error bars are ontop of eachother. Otherwise you may have made an oopsie with your free parameters.</div>
 			  </div>
 			</div>
 		</div>
@@ -456,7 +455,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="fit_LP_counts_map_yproj_2.000_5.710.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">Y Projection</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Y Projection</h3>This images stacks all the counts along one axis. It is like viewing the source from the side. It is a good sign when the blue model and the error bars are ontop of eachother. Otherwise you may have made an oopsie with your free parameters.</div>
 			  </div>
 			</div>
 		</div>
@@ -469,7 +468,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
   <div class="container">
   	<img src="fit_LP_counts_spectrum.png" class="image" style="width:100%">
   	 <div class="middle">
-  		<div class="text" style="width:100%"><h3 style="text-align:left;">Spectrum Fit</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+  		<div class="text" style="width:100%"><h3 style="text-align:left;">Spectrum Fit</h3> Above is the total counts per energy bin. This is an SED before we transform counts into units of energy. Below is another variation of the residual. We want an equal amount of points and error bars above and below the zero line.</div>
   	</div>
   </div>
 </center>
@@ -482,7 +481,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="SED_fit_LP_4fgl_j1104.4+3812_sed.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED</h3>This is what we get when we transorm the Spectrum Fit's count bins into energy bins. There are less high energy photons than low energy photons for this source but the total energy emission is greater at high energies than at low energies.</div>
 			  </div>
 			</div>
 		</div>
@@ -491,7 +490,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="SED_fit_LP_4fgl_j1104.4+3812_sedlnl.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED With Sigma Error</h3> A description of arbitrary length A description of arbitrary length A description of arbitrary length</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED With Sigma Error</h3>Same as the SED but with visual significant deviations. As long as most of the points have green overlapping the model you are doing good.</div>
 			  </div>
 			</div>
 		</div>
@@ -509,7 +508,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
   <h2>Recomendations</h2>
   <p>If you have a large data set, break the analysis into chunks to quicken computaion time and to buffer your analysis from computational failure.</p>
   <h2>Redoing a ltcurve analysis</h2>
-  <p>If you need to change any parameters delete all output files before restarting. Sadly the previous parameters are hardwired within the output files. It is supposed to be designed so large chunks of computaion do not have to be redone, but oh well you still have to.</p>
+  <p>If you need to change any parameters delete all output files before restarting. Sadly the previous parameters are hardwired within the output files. It is supposed to be designed so large chunks of computation do not have to be redone, but oh well you still have to.</p>
   <h2>Markarian 421 specific time cuts.</h2>
   <p>ltcurve crashes and output is irrecoverable. GTI solutions, and Skip solutions, and fermilat down solutions</p>
 </div>
