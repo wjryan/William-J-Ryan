@@ -524,7 +524,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 			<div class="container">
 			  <img src="SED_fit_LP_4fgl_j1104.4+3812_sedlnl.png" class="image" style="width:175%">
 			  <div class="middle">
-			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED With Sigma Error</h3>Same as the SED but with visual significant deviations. As long as most of the points have green overlapping the model you are doing good.</div>
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED With Sigma Error</h3>Same as the SED but with visual significant deviations. As long as most of the points have   overlapping the model you are doing good.</div>
 			  </div>
 			</div>
 		</div>
@@ -537,14 +537,48 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 
 
 
-<h1 style="text-align:center;">PROBLEM SOLVING: work in progress</h1>
+<h1 style="text-align:center;">PROBLEM SOLVING/TIPS AND TRICKS/WISDOM: work in progress</h1>
+
+<div class="card">
+  <h2>Problematic time periods</h2>
+  <p>The most prevelent error for my analysis was a GTI error. GTI stands for Good Time Interval. Every now and then a bin would have too little GTI and raise an error. My first solution was to iterate through the data from the start time of the error to the next start time of good GTI. Then I can broke the lightcurve up into two blocks, one before and one after the bad GTI error. This worked for a few bins but not all. All GTI errors that could not be solved this way was instead iterated manually till both blocks ran without errors. One of these periods of time is associated with a FermiLAT malfunction. I am not sure what caused the rest but they range from a day to a month. Luckily I did all the hard work of finding these anaomalyous time regions. If your analysis runs through any of these make sure to work around them.</p>
+
+  <p>The times below are formatted in fermi seconds and represent the start and end times for all proplematic time periods.</p>
+
+  <pre>
+        258423217.000 - 258856049.92907503 | 5 days
+        286829018.000 - 286917169.90681678 | 1 days
+        407983419.494 - 409498047.63590258 | 17 days + at least 4 salvageable days
+        415081647.000 - 415343491.645      | 3 days
+        417966091.000 - 418021891.000      | 1 days
+        491867020.000 - 492018220.000 | 2 days
+        492018220.494 - 492448306.000 | 5 days
+        543012221.000 - 546855985.000 | 2018-03-17 - 2018-05-01 about a month
+        547818985.000 - 548510185.000 | 8 days
+        550540585.000 - 551145385.000 | 7 days
+        551822185.000 - 552425185.000 | 7 days
+        554370985.000 - 555090221.494 | 8 days
+        556105421.000 - 558604903.000 | 29 days
+        558943303.000 - 559045108.000 | 1 day
+        560652508.000 - 562461508.000 | 20 days
+        563476708.000 - 563910508.000 | 5 days
+        570631708.000 - 571319308.000 | 8 days
+
+  </pre>
+</div>
+
+
+
+
+
+
+
+
 <div class="card">
   <h2>Recomendations</h2>
   <p>If you have a large data set, break the analysis into chunks to quicken computaion time and to buffer your analysis from computational failure.</p>
   <h2>Redoing a ltcurve analysis</h2>
   <p>If you need to change any parameters delete all output files before restarting. Sadly the previous parameters are hardwired within the output files. It is supposed to be designed so large chunks of computation do not have to be redone, but oh well you still have to.</p>
-  <h2>Markarian 421 specific time cuts.</h2>
-  <p>ltcurve crashes and output is irrecoverable. GTI solutions, and Skip solutions, and fermilat down solutions</p>
 </div>
 
 
