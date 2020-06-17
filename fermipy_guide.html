@@ -141,7 +141,7 @@ mark {
 <div class="card">
   <p> <strong>What Is FERMIPY?</strong> <br><br>
 
-  	Fermipy is a set of coding tools in python tailored to analyze data from the Fermi Large Area Telescope (FermiLAT), one of two instruments aboard the Fermi satellite. The code takes in photon data and spits out something meaningful, usually. This Guide will go over the two analysis methods I am most familiar with, SED and Lightcurve.</p>
+  	Fermipy is a set of coding tools in python tailored to analyze data from the Fermi Large Area Telescope (FermiLAT), one of two instruments aboard the Fermi satellite. The code takes in photon data and spits out something meaningful, usually. This Guide will go over the two analysis methods I am most familiar with, SED, Lightcurve, and Bayesian Blocks.</p>
 </div>
 
   <h1 style="text-align:center;">A GENERAL OVERVIEW OF THE ANALYSES</h1>
@@ -166,6 +166,11 @@ mark {
   <p> <strong>Lightcurve Analysis</strong>:<br><br>
 
   	Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.</p>
+
+    <p> <strong>Bayesian Blocks</strong>:<br><br>
+
+  The spectral model used to create the light-curve does not model periods of high or low flux accurately. So we can use Bayesian statistics to split the lightcurve into blocks of similar average flux and calculate a unique spectral model for each block. Then you can produce a light-curve over each block and splice the data together. The end result is a light curve comprised of more accurate values and errors.
+    </p>
 </div>
 
 
@@ -384,6 +389,35 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 <mark>lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</mark>
 </pre>
 
+<div class="card">
+  <h1 style="text-align:center;">Bayesian Blocks</h1>
+
+  <p> I wrote this code in a python Jupyter notebook. It makes it easier to fix bugs and what not. After making your lightcurve remove all points with <b>ts</b> values less than or equal to 3. This should get rid of most points that mess up the bayesian block code. Then remove all <b>nan</b> values from the data. Then run the bayesian blocks and plot it. Below ae the the important modules and code.</p>
+</div>
+
+<pre>
+  from pylab import *
+  import astropy.io
+  from astropy.stats import bayesian_blocks
+  from os import path, access, R_OK
+  import csv
+
+  import pandas as pd
+  from io import StringIO
+
+</pre> <p>The *<b>_cut</b> affix refers to my data after removing the <b>nan</b> values and low <b>ts</b> values. And the <b>p0</b> value refers to the <b>1-sigma</b> change required for two averages to be considered seperate blocks. So a <b>p0 = .05</b> corresponds to a 95% difference in average flux between each block. </p> <pre>
+  edges = bayesian_blocks(<mark>t_cut, flux_cut, fluxerr_cut</mark>, fitness='measures', p0 = 3e-7)
+
+  flux_cut_array = np.array(flux_cut)
+
+  plt.figure(1,figsize=(20,5))
+  errorbar(t_cut,flux_cut/(average(flux_cut)*(t[-1]-t[0])), yerr = array(fluxerr_cut)/(average(flux_cut)*(t[-1]-t[0])), fmt = 'o', alpha =0.2)
+  H2 = hist(t_cut, bins=edges, histtype='step', weights = flux_cut_array/2.1691328866824121e-08, normed = True,linewidth = 2,color='r')
+  ylabel(r'Flux (normalized units) = $\Phi_{\gamma} = Photons*cm^{-2} s^{-1}$')
+  xlabel('MJD')
+  plt.title('Bayesian Blocks with p0=5sigma')
+  plt.savefig('bayesianblock_5sigma.png')
+</pre>
 
 
 <h1 style="text-align:center;">OUTPUT IMAGES</h1>

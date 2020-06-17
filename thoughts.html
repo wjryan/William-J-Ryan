@@ -1,51 +1,176 @@
 <!DOCTYPE html>
+
 <html>
 <head>
+<style>
 
-	<title>Thoughts</title>
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+  }
+
+  .header h1 {
+    font-size: 50px;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+mark {
+  background-color: #e2acfb;
+  color: black;
+}
+
+.text {
+  background-color: #7300EF;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 33%;
+  padding: 5px;
+}
+
+.card {
+  background-color:  #aaa;
+  padding: 20px;
+  margin-top: 20px;
+}
+</style>
+	<title>William_Ryan</title>
 	<meta charset="utf-8">
 </head>
 
-<nav>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="thoughts.html">Writings</a></li>
-    <li><a href="research.html">Research</a></li>
-    <li><a href="fermipy_guide.html">Fermipy Guide</a></li>
-  </ul>
-</nav>
+
 
 <body>
 
-<h1>THOUGHTS</h1> 
+	<div class="header">
+	  <h1 style="text-align:center;">Writings</h1>
+	</div>
 
-<p>
-<strong>ABYSS</strong> <br>
- <br>
+	<div class="topnav">
+	  <a href="index.html">Home</a>
+	  <a href="thoughts.html">Writings</a>
+	  <a href="research.html">Research</a>
+	  <a href="fermipy_guide.html">Fermipy Guide</a>
+	</div>
 
-<pre>
-oh woe 
-my mind is blank 
-my eyes are blank 
-my ears hear the drip drop 
-of rain outside 
-It came 
-my center is calm 
-Thoughts 
-like large ocean farers, 
-lightless dwellers, 
-brush up against me 
-leaving nothing 
-but vague shape 
- 
-On the edges
-the slish slosh  
-of an anxious shore 
 
-15 March 2020 
-</pre>
 
-</p>
+
+
+
+<div class="row">
+
+	<div class="column">
+		<pre>
+		<strong>ABYSS</strong> <br><br>
+		oh woe
+		my mind is blank
+		my eyes are blank
+		my ears hear the drip drop
+		of rain outside
+		It came
+		my center is calm
+		Thoughts
+		like large ocean farers,
+		lightless dwellers,
+		brush up against me
+		leaving nothing
+		but vague shape
+
+		On the edges
+		the slish slosh
+		of an anxious shore
+
+		15 March 2020
+		</pre>
+
+	</div>
+
+	<div class="column">
+	Place Holder
+	</div>
+
+	<div class="column">
+	Place Holder
+	</div>
+
+	<div class="column">
+	Place Holder
+	</div>
+
+</div>
+
+
+
+
+
 
 </body>
 </html>

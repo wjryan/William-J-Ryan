@@ -1,36 +1,131 @@
 <!DOCTYPE html>
 
 <html>
-
-</head>
-
 <head>
+<style>
 
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+  }
+
+  .header h1 {
+    font-size: 50px;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+mark {
+  background-color: #e2acfb;
+  color: black;
+}
+
+.text {
+  background-color: #7300EF;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
+
+.card {
+  background-color:  #aaa;
+  padding: 20px;
+  margin-top: 20px;
+}
+</style>
 	<title>William_Ryan</title>
 	<meta charset="utf-8">
 </head>
-
-<nav>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="thoughts.html">Writings</a></li>
-    <li><a href="research.html">Research</a></li>
-    <li><a href="fermipy_guide.html">Fermipy Guide</a></li>
-  </ul>
-</nav>
 
 
 
 <body>
 
-<h1 style="text-align:center;">William Ryan</h1>
+<div class="header">
+  <h1 style="text-align:center;">William Ryan</h1>
+</div>
 
-<hr>
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="thoughts.html">Writings</a>
+  <a href="research.html">Research</a>
+  <a href="fermipy_guide.html">Fermipy Guide</a>
+</div>
 
-<h2>A little about me</h2>
-<p title="A little About me">
-I am a third year undergraduate at ucsc currently pursuing a degree in physics and computauional mathmatics. I am currently entertaining the idea of pursuing a PHD in plasma physics. Though I have just started my first Quantum mechanics class and my prferences may change.
-</p>
+<div class="card">
+	<h2>A little about me</h2>
+	<p title="A little About me">
+	I am a third year undergraduate at ucsc currently pursuing a degree in physics and computauional mathmatics. I am currently entertaining the idea of pursuing a PHD in plasma physics. Though I have just started my first Quantum mechanics class and my prferences may change.
+	</p>
+</div>
 
 <p> lets try emmbedding a pdf that will eventually serve as my <a href="resume.txt">resume</a>
 </p>
