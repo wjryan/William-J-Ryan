@@ -311,7 +311,7 @@ gta = GTAnalysis(<mark>'config.yaml'</mark>, logging={'verbosity':3})
 matplotlib.interactive(True)
 gta.setup()
 
-<pre/><p>If you want to change the model for your source then use <b>set_source_spectrum</b> function below with the appropriate model name as found on this <a href="https://fermi.gsfc.nasa.gov/ssc/data/analysis/scitools/source_models.html">website</a>. Then set appropriate values for each parameter (the values do not need to be perfect because they will change during the fit but they do need to be within the prescribed bounds of the fit). <b>IMPORTANT</b>: If you want to use the catalog model then delete this from your code. </p><pre>
+</pre><p>If you want to change the model for your source then use <b>set_source_spectrum</b> function below with the appropriate model name as found on this <a href="https://fermi.gsfc.nasa.gov/ssc/data/analysis/scitools/source_models.html">website</a>. Then set appropriate values for each parameter (the values do not need to be perfect because they will change during the fit but they do need to be within the prescribed bounds of the fit). <b>IMPORTANT</b>: If you want to use the catalog model then delete this from your code. </p><pre>
 
 <mark>gta.set_source_spectrum('4FGL J1104.4+3812',spectrum_type='PLSuperExpCutoff', update_source = False)
 
