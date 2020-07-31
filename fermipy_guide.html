@@ -193,13 +193,13 @@ mark {
 
 <div class="card">
 
-  <p>  Here I explain each of the three main files and what you will need to be change in order to run a succesful analysis. The original file is linked below each header. Any highlighting means one of two things. Either it is a piece of code that <b>needs to be changed</b> for your analysis or it is a solution to a problem I have encountered.</p>
+  <p>  Here I explain each of the three  main files and what you will need to change in order to run a succesful analysis. An original file is linked below each header. It does not necessarily have the exact syntax you need for what you want to do. Make changes as needed for your specific analysis. Any highlighting means one of two things. Either it is a piece of code that <b>needs to be changed</b> for your analysis or it is a solution to a problem I have encountered. </p>
 </div>
 
 <div class="card">
   <p> <strong>A Note On Folder Structure And File Placement</strong>:<br><br>
 
-  <p>I recommend having a parent directory that houses a folder containing your data and a folder containing your code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. Given my recommendation you will need to create a soft-link to your data from your code folder; however, using a soft-link will allow you to run multiple analyses using the same data files. Below is a visual representaion of your file structure. <b>Do not use the rm command to delete a softlink. That will delete all of your data. Instead, use the unlink command.</b></p>
+  <p>I recommend having a parent directory that houses a folder containing your data and a folder containing your code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. Given my recommendation you will need to create a soft-link to your data from your code folder; however, using a soft-link will allow you to run multiple analyses using the same data files. Below is a visual representaion of your file structure.</p>
 
   <img src="filestree-2.jpg" class="image" style="width:50%">
 </div>
@@ -225,7 +225,7 @@ data:
 binning:
       roiwidth : 10.0
       binsz : 0.1
-</pre><p>binsperdec refers to the number of bins per each 100X increment of energy. If you have a lot of upper bounds than decreasing this number can help your SEDs be visually appealing.</p><pre>
+</pre><p>binsperdec refers to the number of bins per each 10X increment of energy. If you have a lot of upper bounds than decreasing this number can help your SEDs be visually appealing.</p><pre>
       <mark>binsperdec : 8</mark>
 
 selection:
@@ -254,9 +254,10 @@ gtlike:
 
 model:
       src_roiwidth: 15.0
-      galdiff : '$FERMI_DIR/refdata/fermi/galdiffuse/gll_iem_v07.fits'
-      isodiff : '$FERMI_DIR/refdata/fermi/galdiffuse/iso_P8R3_SOURCE_V2_v1.txt'
-      catalogs : ['4FGL']
+  </pre> <p> You will need to change the path to both the <b>galdiff</b> and <b>isodiff</b> models if you are on a different server than UCSC VHE. Feel free to change the <b>catalog</b>. I believe the most up to date version is 4FGL-DR2 which can be found on the fermi website or the AST-08 google drive. You can specify the xml file itself here as well. You can find more info <a href="https://fermipy.readthedocs.io/en/latest/config.html">here<a>. And I believe their are currently problems parsing 4FGL-DR2 source models so I would specify the xml file instead. </p> <pre>
+    <mark>galdiff : '$FERMI_DIR/refdata/fermi/galdiffuse/gll_iem_v07.fits'</mark>
+    <mark>isodiff : '$FERMI_DIR/refdata/fermi/galdiffuse/iso_P8R3_SOURCE_V2_v1.txt'</mark>
+    <mark>catalogs : ['4FGL']</mark>
 
 fileio:
 </pre><p>The <b>outdir</b> is the directory that all output files will be placed. If the folder does not exist when either sed.py or ltcurve.py is run then the folder will be created automatically. The <b>fermipy.log</b> is a text file that contains program messages including errors.</p><pre>
@@ -269,11 +270,11 @@ lightcurve:
 </pre><p>While running ltcurve.py the program will place the output files of each time bin into the <b>outdir</b> specified here. This <b>outdir</b> will be placed in the <b>fileio outdir</b>. The <b>binsz</b> specifies the time bin size, in seconds, for, the lightcurve analysis.</p><pre>
       <mark>outdir : 'ltcurve_files'</mark>
       <mark>binsz : 84600.0 #1 days</mark>
-      free_background : True
+      <mark>free_background : True</mark>
 
 sed:
       make_plots : True
-      free_background : True
+      <mark>free_background : True</mark>
 </pre>
 
 
@@ -282,7 +283,7 @@ sed:
   <h1 style="text-align:center;">sed.py</h1>
   <a href="sed.py">View</a><br>
   <a href="sed.py" download>Download</a><br>
-  <p> This analysis will have to be run twice. The first run will give you a <b>bin_index</b> that you will use to perform the second analysis. After the first analysis look for <b>srcmdl_00.xml</b> in the output directory. Within this file lies the new <b>bin_index</b> value. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/advanced/sed.html#">link<a>.</p>
+  <p> If you are only producing an SED then this is the only code you need. <b>IMPORTANT</b>: the sed.py linked file above should run right out of the box as long as your <b>config.yaml</b> and your paths are set up correctly. For more information visit this <a href = "https://fermipy.readthedocs.io/en/latest/advanced/sed.html#">link<a>.</p>
 </div>
 
 <pre>
@@ -311,7 +312,7 @@ gta = GTAnalysis(<mark>'config.yaml'</mark>, logging={'verbosity':3})
 matplotlib.interactive(True)
 gta.setup()
 
-</pre><p>If you want to change the model for your source then use <b>set_source_spectrum</b> function below with the appropriate model name as found on this <a href="https://fermi.gsfc.nasa.gov/ssc/data/analysis/scitools/source_models.html">website</a>. Then set appropriate values for each parameter (the values do not need to be perfect because they will change during the fit but they do need to be within the prescribed bounds of the fit). <b>IMPORTANT</b>: If you want to use the catalog model then delete this from your code. </p><pre>
+</pre><p>If you want to change the model for your source then use <b>set_source_spectrum</b> function below with the appropriate model name as found on this <a href="https://fermi.gsfc.nasa.gov/ssc/data/analysis/scitools/source_models.html">website</a>. Then set appropriate values for each parameter. The values do not need to be perfect because they will change during the fit but they do need to be within <i>resonable</i> bounds. I recommend comparing the catalog model with your choice model. Those variabels that act (mathmatically speeaking. The names are not the same across models) equivalently should have the same value and bounds. <b>IMPORTANT</b>: If you want to use the catalog model then delete this from your code. Just use the code linked above. Also note when you change the model are parameters are by default free (except for Scale/norm). </p><pre>
 
 <mark>gta.set_source_spectrum('4FGL J1104.4+3812',spectrum_type='PLSuperExpCutoff', update_source = False)
 
@@ -327,6 +328,7 @@ gta.set_parameter('4FGL J1104.4+3812','Cutoff', value = 256500, scale = 1, updat
 gta.set_parameter_bounds('4FGL J1104.4+3812','Cutoff',[100,513000])
 
 gta.set_parameter('4FGL J1104.4+3812','Index2', value = 1, scale = 1, update_source = False)
+
 </mark>
 
 </pre><p>This performs a likelyhood minimization in order to aquire a TS value for each source.</p><pre>
@@ -335,13 +337,13 @@ gta.set_parameter('4FGL J1104.4+3812','Index2', value = 1, scale = 1, update_sou
 gta.print_model()
 print(gta.roi[SOURCE])
 
-</pre><p>Sources with too little significance can screw up the analysis. This freezes all sources with less than 3 sigma significance.</p><pre>
+</pre><p>Sources with too little significance can screw up the analysis. This freezes all sources with less than 3 sigma significance. You can also use <b>gta.free_source('name',free=True)</b> to free individual sources or freeze them.</p><pre>
 <mark>gta.free_sources(minmax_ts = [9,1600000])</mark>
 
 fit_results = gta.fit()
 gta.print_model()
 print(gta.roi[SOURCE])
-</pre><p>You can name the output files whatever you want by changing the names here.</p><pre>
+</pre><p>You can name the output files whatever you want by changing the names here. And you should change them.</p><pre>
 gta.write_roi(<mark>'fit_LP'</mark>, make_plots=True,save_model_map=True)
 tsmap = gta.tsmap(prefix=<mark>'TSmap_fit_LP'</mark>, make_plots=True)
 resid = gta.residmap(<mark>'Residuals_fit_LP'</mark>,make_plots=True)
@@ -353,7 +355,7 @@ gta.print_roi()
 gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
 
 </pre><p>By default the <b>bin_index</b> is set to 2. After running the analysis once the output file will contain a new <b>bin_index</b> that you will specify here and run another analysis. Depending on the model you are using you will have to specify the <b>free_pars</b> of the source here. The <b>cov_scale</b> parameter is a "Scale factor that sets the strength of the prior on nuisance parameters that are free. Setting this to None disables the prior." I remember this parameter solved a problem I was having but I do not remember what that problem was. Though it was most likely a minimizer convergence failure.</p><pre>
-<mark>sed = gta.sed(SOURCE,prefix='SED_fit_LP', bin_index = 1.72304034233, free_background = True, cov_scale = None,free_pars=['norm','alpha','beta'])</mark>
+<mark>sed = gta.sed(SOURCE,prefix='SED_fit_LP', use_local_index = True, free_background = True, cov_scale = None)</mark>
 
 gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
 
@@ -363,7 +365,7 @@ gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
   <h1 style="text-align:center;">ltcurve.py</h1>
   <a href="ltcurve.py">View</a><br>
   <a href="sed.py" download>Download</a><br>
-  <p>After inputing the parameter values for the main target found in the SED analysis and freeing the appropriate sources you can run this analysis. Then you can use <b>source_lightcurve.fits</b> within the output folder to graph the ltcurve (PLACE PYTHON FILE USED TO GRAPH POINTS HERE). Make sure you clean the data of any <b>nan</b> values at this point.</p>
+  <p> If you are doing a ltcurve analysis of your source then you append the below lines to your sed.py code. I have already dones this in the downloadble ltcurve.py file above. When you run the code all changes you made to models and free sources in the sed.py will carry over to the ltcurve analysis.  Then you can use <b><i>source</i>_lightcurve.fits</b> within the output folder to graph the ltcurve (PLACE PYTHON FILE USED TO GRAPH POINTS HERE). Make sure you clean the data of any <b>nan</b> values at this point.</p>
 </div>
 
 <pre>
@@ -390,18 +392,8 @@ gta = GTAnalysis('config.yaml', logging={'verbosity':3})
 matplotlib.interactive(True)
 gta.setup()
 
-gta.print_model()
-print(gta.roi[SOURCE])
+<mark>COPY AND PASTED FROM SED.PY. DOWNLOAD THE FILE IN THE HEADER ABOVE</mark>
 
-</pre><p>These values are located within the same file as the <b>bin_index</b>. The value and error, except for the norm, of each parameter must be given. Depending on the model you are using the names and number of parameters will differ.</p><pre>
-<mark>gta.set_parameter('4FGL J1104.4+3812','norm',value = 1.721997147e-11, scale = 1, error = 0.01313677393e-11, update_source = False)</mark>
-<mark>gta.set_parameter_bounds('4FGL J1104.4+3812','norm',[1e-16,1000e-11])</mark>
-
-<mark>gta.set_parameter('4FGL J1104.4+3812','alpha', value = 1.739376675, scale = 1, error =  0.006991402649, update_source = False)</mark>
-<mark>gta.set_parameter('4FGL J1104.4+3812','Eb', value = 1287.365845, scale = 1, update_source = False)</mark>
-<mark>gta.set_parameter('4FGL J1104.4+3812','beta', value = 0.01523674109, scale = 1, error = 0.002518878993, update_source = False)</mark>
-
-</pre><p><b>IMPORTANT</b>: You will have to use <b>gta.free_source()</b> in order to free and freeze the same sources that were freed and frozen during your SED analysis. You can place that code here.</p><pre>
 </pre><p> Depending on how large your errors are you may or may not want to free the background. The <b>shape_ts_threshold</b> sets the TS threshold at which shape parameters of sources will be freed. This can be problematic when you have already input your free and frozen sources as this command takes priority. I set the value arbitrarily large so it does not free any sources I do not want it too.<pre><p>
 lc = gta.lightcurve(SOURCE,<mark>free_background=False</mark>,make_plots=True,<mark>shape_ts_threshold = 1000000000</mark>)
 gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)

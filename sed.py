@@ -17,7 +17,7 @@ from fermipy.gtanalysis import GTAnalysis
 from fermipy.plotting import ROIPlotter, SEDPlotter
 from astropy.table import Table, Column
 import astropy.io.fits as pyfits
-import yaml 
+import yaml
 
 
 
@@ -59,14 +59,12 @@ print('=====')
 print('Freeing all sources with consequential significance')
 print('And printing some information')
 print('=====')
+
 gta.print_model()
 print(gta.roi[SOURCE])
 
-
-
 gta.free_sources(minmax_ts = [9,1600000])
-
-
+gta.optimize()
 
 print('_____________________________________________')
 print('-----')
@@ -76,7 +74,6 @@ gta.print_params(allpars=True)
 print('=====')
 gta.print_roi()
 print('_____________________________________________')
-
 
 print('=====')
 print('Fit_results and plots')
@@ -87,27 +84,22 @@ print('=====')
 fit_results = gta.fit()
 gta.print_model()
 print(gta.roi[SOURCE])
-gta.write_roi('fit_LP', make_plots=True,save_model_map=True)
-print('')
-print('Once again diagnostic plots and the model map has been made')
-print('')
+gta.write_roi('roi_1',save_model_map=True)
+
+print('_____________________________________________')
 print('Now to make a TSmap and residual map')
-tsmap = gta.tsmap(prefix='TSmap_fit_LP', make_plots=True)
-resid = gta.residmap('Residuals_fit_LP',make_plots=True)
-print('')
-print('Now if the following fit attempt fails,')
-print('we at least have a place to start....')
+tsmap = gta.tsmap(prefix='TSmap', make_plots=True)
+resid = gta.residmap('Residuals',make_plots=True)
 print('_____________________________________________')
 
-
-
-print('-----')
+print('Printing info to the screen again')
+print('_____________________________________________')
 gta.print_model()
-print('=====')
+print('_____________________________________________')
 gta.print_params(allpars=True)
-print('=====')
+print('_____________________________________________')
 gta.print_roi()
-print('=====')
+print('_____________________________________________')
 
 
 gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
@@ -120,15 +112,13 @@ print('=====')
 
 #SED
 '''
-All the hard work has been done already. This will still take a very
-long time to compute because it will peform the analysis with the
+All the hard work has been done already. This will still take some
+time to compute because it will peform the analysis with the
 sources that were freed for the fitting. Go get some tea.....
 '''
 
-sed = gta.sed(SOURCE,prefix='SED_fit_LP', bin_index = 1.72304034233, free_background = True, cov_scale = None,free_pars=['norm','alpha','beta'])
-#1.739376675
-
-gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)
+sed = gta.sed(SOURCE,prefix='SED_fit', use_local_index = True, free_background = True, cov_scale = None)
+gta.write_roi('roi_2', make_plots=True,save_model_map=True)
 
 print('=====')
 print('SED finished')
