@@ -115,7 +115,7 @@ mark {
 
 <div class="topnav">
   <a href="index.html">Home</a>
-  <a href="thoughts.html">Writings</a>
+
   <a href="research.html">Research</a>
   <a href="fermipy_guide.html">Fermipy Guide</a>
 </div>
@@ -555,7 +555,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
 
 <div class="card">
   <h2>Problematic time periods</h2>
-  <p>The most prevelent error for my analysis was a GTI error. GTI stands for Good Time Interval. Every now and then a bin would have too little GTI and raise an error. My first solution was to iterate through the data from the start time of the error to the next start time of good GTI. Then I can broke the lightcurve up into two blocks, one before and one after the bad GTI error. This worked for a few bins but not all. All GTI errors that could not be solved this way was instead iterated manually till both blocks ran without errors. One of these periods of time is associated with a FermiLAT malfunction. I am not sure what caused the rest but they range from a day to a month. Luckily I did all the hard work of finding these anaomalyous time regions. If your analysis runs through any of these make sure to work around them.</p>
+  <p>The most prevelent error for my analysis was a GTI error. GTI stands for Good Time Interval. Every now and then a bin would have too little GTI and raise an error. At first I iterated through the data from the start time of the error till I hit the next good GTI. Then I broke the lightcurve up into two blocks, one before and one after the bad GTI error. This worked for some GTI errors but not all. All remaining GTI errors were instead broken into two bloacks and iterated manually till both blocks ran without error. One specific cut is associated with a FermiLAT malfunction. Luckily I did all the hard work of finding these anaomalyous time regions. If your analysis runs through any of these make sure to work around them. Also note that these errors depend on the size of the lightcurve time bins. If your anlaysis uses month bins then there are only two month long problematic time periods you need to worry about and ignore the rest.</p>
 
   <p>The times below are formatted in fermi seconds and represent the start and end times for all proplematic time periods.</p>
 
@@ -581,20 +581,7 @@ gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
   </pre>
 </div>
 
-
-
-
-
-
-
-
-<div class="card">
-  <h2>Recomendations</h2>
-  <p>If you have a large data set, break the analysis into chunks to quicken computaion time and to buffer your analysis from computational failure.</p>
-  
-</div>
-
-
+<p>Last updated 16 September 2020</p>
 
 </body>
 
