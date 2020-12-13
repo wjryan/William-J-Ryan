@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.11.9)  6 DEC 2020 13:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.11.9)  13 DEC 2020 12:55
 entering extended mode
 **./res1.tex
 (res1.tex
@@ -66,17 +66,17 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Here is how much of TeX's memory you used:
  476 strings out of 480257
  7774 string characters out of 2893609
- 277447 words of memory out of 3000000
+ 278447 words of memory out of 3000000
  17092 multiletter control sequences out of 15000+200000
  536682 words of font info for 34 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 52i,8n,58p,410b,195s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 52i,8n,58p,493b,195s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\William Ryan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
 pi600\tcrm1000.pk><C:/Programs/Miktex/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ><C:/Programs/Miktex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Programs/Mik
 tex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Programs/Miktex/fonts/type1/pu
 blic/amsfonts/cm/cmti10.pfb>
-Output written on res1.pdf (2 pages, 68652 bytes).
+Output written on res1.pdf (2 pages, 69285 bytes).
 PDF statistics:
  30 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
