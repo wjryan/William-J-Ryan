@@ -46,17 +46,18 @@ print('=====')
 print('Performing setup')
 print('=====')
 
-
-
 #Reading in the config.yaml and beginning the Fermi Analysis
 gta = GTAnalysis('config.yaml', logging={'verbosity':3})
 matplotlib.interactive(True)
 gta.setup()
 
+#The optimize function calculates the TS for each source in the region of interest (ROI)
+#Because gta.free_sources() and gta.sed() require TS, the optomize function here must be performed first
+gta.optimize()
 
 
 print('=====')
-print('Freeing all sources with consequential significance')
+print('Freeing all sources with significance greater than 9 TS')
 print('And printing some information')
 print('=====')
 
@@ -64,7 +65,7 @@ gta.print_model()
 print(gta.roi[SOURCE])
 
 gta.free_sources(minmax_ts = [9,1600000])
-gta.optimize()
+
 
 print('_____________________________________________')
 print('-----')
@@ -78,7 +79,6 @@ print('_____________________________________________')
 print('=====')
 print('Fit_results and plots')
 print('=====')
-
 
 
 fit_results = gta.fit()

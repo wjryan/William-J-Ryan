@@ -1,0 +1,89 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.11.9)  13 DEC 2020 13:06
+entering extended mode
+**./res1.tex
+(res1.tex
+LaTeX2e <2020-10-01> patch level 1
+L3 programming layer <2020-10-05> xparse <2020-03-03> (res.cls
+Document Style `res' <26 Sep 89>.
+Document Class: res 2000/05/19 v1.4b Resume class
+(C:\Programs\Miktex\tex/latex/base\article.cls
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+(C:\Programs\Miktex\tex/latex/base\size10.clo
+File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count175
+\c@section=\count176
+\c@subsection=\count177
+\c@subsubsection=\count178
+\c@paragraph=\count179
+\c@subparagraph=\count180
+\c@figure=\count181
+\c@table=\count182
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+No auxiliary output files.
+
+\tabular@text=\toks15
+\tabular@head=\toks16
+\tabular@tail=\toks17
+\@ta=\toks18
+\undefined@token=\toks19
+\sectionwidth=\dimen139
+\sectionskip=\skip49
+\resumewidth=\dimen140
+\@columnwidth=\dimen141
+\c@numberofcolumns=\count183
+) (C:\Programs\Miktex\tex/latex/l3backend\l3backend-pdftex.def
+File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count184
+\l__pdf_internal_box=\box47
+)
+No file res1.aux.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 18.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 18.
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--29
+
+ []
+
+[1
+
+{C:/Users/William Ryan/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+[2] ) 
+Here is how much of TeX's memory you used:
+ 476 strings out of 480257
+ 7774 string characters out of 2893609
+ 277447 words of memory out of 3000000
+ 17092 multiletter control sequences out of 15000+200000
+ 536682 words of font info for 34 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 52i,8n,58p,493b,202s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\William Ryan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
+pi600\tcrm1000.pk><C:/Programs/Miktex/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+><C:/Programs/Miktex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Programs/Mik
+tex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Programs/Miktex/fonts/type1/pu
+blic/amsfonts/cm/cmti10.pfb>
+Output written on res1.pdf (2 pages, 69347 bytes).
+PDF statistics:
+ 30 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

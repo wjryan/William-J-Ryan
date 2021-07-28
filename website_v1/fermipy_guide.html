@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<style>
+
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+  }
+
+  .header h1 {
+    font-size: 50px;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+mark {
+  background-color: #e2acfb;
+  color: black;
+}
+
+.text {
+  background-color: #7300EF;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
+
+.card {
+  background-color:  #aaa;
+  padding: 20px;
+  margin-top: 20px;
+}
+</style>
+	<title>William_Ryan</title>
+	<meta charset="utf-8">
+</head>
+
+
+
+<body>
+
+<div class="header">
+  <h1 style="text-align:center;">FERMIPY GUIDE</h1>
+</div>
+
+<div class="topnav">
+  <a href="index.html">Home</a>
+
+  <a href="research.html">Research</a>
+  <a href="fermipy_guide.html">Fermipy Guide</a>
+</div>
+
+<div class="card">
+  <p> <strong>What is this Guide?</strong><br><br>
+    This guide is a record of my trials and tribulations with the coding abomination that is FERMIPY. While the code is fairly straightforward many issues can arise during an analysis using FERMIPY. These issues often come with minimal explanations and can be tricky to solve. My goal is to walk you through an ideal SED and LightCurve analysis while also providing information on regualar issues and solutions I have faced. I have dedicated the last section of this guide to the toughest workarounds I have had to devise in order to succesfully run the code.</p><p>Good Luck!</p>
+</div>
+
+<br>
+<center>
+  <div class="container">
+  	<img src="its-dangerous-to-go-alone-take-this[1].jpg" class="image" style="width:100%">
+  </div>
+</center>
+
+<div class="card">
+  <p> <strong>What is FERMI?</strong><br><br>
+  	Fermi is a satellite gamma ray telescope. It lives in space gathering photons and pooping out data.</p>
+</div>
+
+
+<div class="card">
+  <p> <strong>What Is FERMIPY?</strong> <br><br>
+
+  	Fermipy is a set of coding tools in python tailored to analyze data from the Fermi Large Area Telescope (FermiLAT), one of two instruments aboard the Fermi satellite. The code takes in photon data and spits out something meaningful, usually. This Guide will go over the two analysis methods I am most familiar with, SED, Lightcurve, and Bayesian Blocks.</p>
+</div>
+
+  <h1 style="text-align:center;">A GENERAL OVERVIEW OF THE ANALYSES</h1>
+
+<div class="card">
+  <p> <strong>SED Analysis</strong>:<br><br>
+
+  	Given a photon has a continuous distribution of energies it could possess we can sort a source's photon data set into groups (bins) of similar energies. Each bin can be translated into a total energy, graphed, and fit with a model. This model's fancy name is a Spectral Energy Distribution or SED for short. With an SED we know how much energy is emitted from a source at a specific energy. SEDs are useful for creating a lightcurve and understanding the basic properties of the source in question.</p>
+</div>
+
+<center>
+  <div class="container">
+  	<img src="SED_fit_LP_4fgl_j1104.4+3812_sed.png" class="image" style="width:100%">
+  	 <div class="middle">
+  		<div class="text" style="width:100%"><h3 style="text-align:left;">SED</h3>
+      </div>
+  	</div>
+  </div>
+</center>
+
+<div class="card">
+  <p> <strong>Lightcurve Analysis</strong>:<br><br>
+
+  	Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.</p>
+
+    <p> <strong>Bayesian Blocks</strong>:<br><br>
+
+  The spectral model used to create the light-curve does not model periods of high or low flux accurately. So we can use Bayesian statistics to split the lightcurve into blocks of similar average flux and calculate a unique spectral model for each block. Then you can produce a light-curve over each block and splice the data together. The end result is a light curve comprised of more accurate values and errors.
+    </p>
+</div>
+
+
+  <div class="container">
+  	<img src="Fermi_bayesian_block_Mrk_421-1.png" class="image" style="width:200%">
+  	 <div class="middle">
+  		<div class="text" style="width:200%"><h3 style="text-align:left;">Lightcurve</h3> This is a 1-day binned lightcurve of Markarian 421. The data is colored blue and the Bayesian Blocks are colored yellow.
+      </div>
+  	</div>
+  </div>
+
+
+<div class="card">
+  <p> <strong>The Data</strong>:<br><br>
+
+  <p>The data for your source can be downloaded from the FermiLAT website <a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as your cordinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe and most accurate energy range for Fermi is between 100 and 513000 MeV. Make sure the space craft file box is checkmarked. The search radius is 15 degrees. After downloading the data onto your computer you can use the rsync command to transfer the files to the college server. I used to have code that would download the data directly onto the server however it does not appear to be working at the moment. Nonethless I will link the file here</p>
+</div>
+
+<h1 style="text-align:center;">THE CODE</h1>
+
+<div class="card">
+
+  <p>  Here I explain each of the three  main files and what you will need to change in order to run a succesful analysis. An original file is linked below each header. It does not necessarily have the exact syntax you need for what you want to do. Make changes as needed for your specific analysis. Any highlighting means one of two things. Either it is a piece of code that <b>needs to be changed</b> for your analysis or it is a solution to a problem I have encountered. </p>
+</div>
+
+<div class="card">
+  <p> <strong>A Note On Folder Structure And File Placement</strong>:<br><br>
+
+  <p>I recommend having a parent directory that houses a folder containing your data and a folder containing your code. Note that whichever folder you run the program from will be the folder where all ouput files are placed. Given my recommendation you will need to create a soft-link to your data from your code folder; however, using a soft-link will allow you to run multiple analyses using the same data files. Below is a visual representaion of your file structure.</p>
+
+  <img src="filestree-2.jpg" class="image" style="width:50%">
+</div>
+
+
+
+<div class="card">
+  <h1 style="text-align:center;">config.yaml</h1>
+  <a href="config.yaml">View</a><br>
+  <a href="config.yaml" download>Download</a><br>
+
+  	<p>The configuration file is where a majority of your source information, file paths, and analysis parameters will be inputed. For additional and more specific information visit this <a href = "https://fermipy.readthedocs.io/en/latest/config.html">link<a>.</p>
+</div>
+
+	<p>First note that their are only spaces and no tabs within this configuration file. The program can not handle tabs and will raise an error if a tab present. Using enter to move to a new line is fine. <b>WARNING:</b> I have had probelems with re-running SED analyses after changing parameters here in config.yaml. I have come to the conlusion that 1) if you change a value in <b>selection:</b> or <b>ltcurve:</b> then you will have to delete All output files and 2) If you change anything else then you do not need to delete any output files (aside from the pngs which you can move elswhere for safe keeping or just delete).</p>
+
+<pre>
+data:
+</pre><p> Here we have the paths to the data we will use in the analysis. The text file within the data folder will be something <b>you will have to create</b>. It contains the path to each individual photon data file. You can take a look at the format through the hyperlink below.</p><pre>
+      <mark>evfile : 'data/<a href="mrk421_binned_events.txt">mrk421_binned_events.txt</a>'</mark>
+      <mark>scfile : 'data/mrk421_SC00.fits'</mark>
+
+binning:
+      roiwidth : 10.0
+      binsz : 0.1
+</pre><p>binsperdec refers to the number of bins per each 10X increment of energy. If you have a lot of upper bounds than decreasing this number can help your SEDs be visually appealing.</p><pre>
+      <mark>binsperdec : 8</mark>
+
+selection:
+      emin : 100
+      emax : 513000
+      zmax : 90
+</pre><p> These <b>tmin tmax</b> values designate the start and end time of your analysis. They are formatted in <b>fermi seconds</b> and a time converter can be found <a href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">here<a></p><pre>
+      <mark>tmin : 239599263.000000</mark>
+      <mark>tmax : 263677795.000000</mark>
+      evclass : 128
+      evtype : 3
+</pre><p> <b>Ra</b> stands for Right Ascension and <b>Dec</b> stand for Declination. These are the sky coordinates of your source. The <b>target</b> is the name of your source as found in the official catalog (link website here, ask olivier as I have forgoten the website).</p><pre>
+      <mark>ra : 166.113808</mark>
+      <mark>dec : 38.208833</mark>
+      <mark>target : 'mkn 421'</mark>
+      radius : 10.0
+      # gtmktime parameters
+      filter : 'DATA_QUAL>0 && LAT_CONFIG==1'
+      roicut : 'no'
+
+
+gtlike:
+      edisp : True
+      irfs : 'P8R3_SOURCE_V2'
+      edisp_disable : ['isodiff', 'galdiff']
+
+model:
+      src_roiwidth: 15.0
+  </pre> <p> You will need to change the path to both the <b>galdiff</b> and <b>isodiff</b> models if you are on a different server than UCSC VHE. Feel free to change the <b>catalog</b>. I believe the most up to date version is 4FGL-DR2 which can be found on the fermi website or the AST-08 google drive. You can specify the xml file itself here as well. You can find more info <a href="https://fermipy.readthedocs.io/en/latest/config.html">here<a>. And I believe their are currently problems parsing 4FGL-DR2 source models so I would specify the xml file instead. </p> <pre>
+    <mark>galdiff : '$FERMI_DIR/refdata/fermi/galdiffuse/gll_iem_v07.fits'</mark>
+    <mark>isodiff : '$FERMI_DIR/refdata/fermi/galdiffuse/iso_P8R3_SOURCE_V2_v1.txt'</mark>
+    <mark>catalogs : ['4FGL']</mark>
+
+fileio:
+</pre><p>The <b>outdir</b> is the directory that all output files will be placed. If the folder does not exist when either sed.py or ltcurve.py is run then the folder will be created automatically. The <b>fermipy.log</b> is a text file that contains program messages including errors.</p><pre>
+      <mark>outdir : 'output'</mark>
+      <mark>logfile : fermipy.log</mark>
+
+
+lightcurve:
+      make_plots : True
+</pre><p>While running ltcurve.py the program will place the output files of each time bin into the <b>outdir</b> specified here. This <b>outdir</b> will be placed in the <b>fileio outdir</b>. The <b>binsz</b> specifies the time bin size, in seconds, for, the lightcurve analysis.</p><pre>
+      <mark>outdir : 'ltcurve_files'</mark>
+      <mark>binsz : 84600.0 #1 days</mark>
+      <mark>free_background : True</mark>
+
+sed:
+      make_plots : True
+      <mark>free_background : True</mark>
+</pre>
+
+
+
+<div class="card">
+  <h1 style="text-align:center;">sed.py</h1>
+  <a href="sed.py">View</a><br>
+  <a href="sed.py" download>Download</a><br>
+  <p> If you are only producing an SED then this is the only code you need. <b>IMPORTANT</b>: the sed.py linked file above should run right out of the box as long as your <b>config.yaml</b> and your paths are set up correctly. For more information visit this <a href = "https://fermipy.readthedocs.io/en/latest/advanced/sed.html#">link<a>.</p>
+</div>
+
+<pre>
+#!/usr/bin/env python2.7
+
+import os
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+from fermipy.gtanalysis import GTAnalysis
+from fermipy.plotting import ROIPlotter, SEDPlotter
+from astropy.table import Table, Column
+import astropy.io.fits as pyfits
+import yaml
+
+</pre><p>This makes matplotlib function correctly.</p><pre>
+<mark>plt.switch_backend('agg')</mark>
+
+</pre><p>If you named your configuration file differently change it here.</p><pre>
+config = yaml.load(open(<mark>'config.yaml'</mark>))
+SOURCE = config['selection']['target']
+DIR = config['fileio']['outdir']
+LCDIR = config['lightcurve']['outdir']
+
+gta = GTAnalysis(<mark>'config.yaml'</mark>, logging={'verbosity':3})
+matplotlib.interactive(True)
+gta.setup()
+
+</pre><p>If you want to change the model for your source then use <b>set_source_spectrum</b> function below with the appropriate model name as found on this <a href="https://fermi.gsfc.nasa.gov/ssc/data/analysis/scitools/source_models.html">website</a>. Then set appropriate values for each parameter. The values do not need to be perfect because they will change during the fit but they do need to be within <i>resonable</i> bounds. I recommend comparing the catalog model with your choice model. Those variabels that act (mathmatically speeaking. The names are not the same across models) equivalently should have the same value and bounds. <b>IMPORTANT</b>: If you want to use the catalog model then delete this from your code. Just use the code linked above. Also note when you change the model, the parameters are freed by default (except for Scale/norm). </p><pre>
+
+<mark>gta.set_source_spectrum('4FGL J1104.4+3812',spectrum_type='PLSuperExpCutoff', update_source = False)
+
+gta.set_parameter('4FGL J1104.4+3812','Prefactor',value = 1.721997147e-11, scale = 1, error = 0.01313677393e-11, update_source = False)
+gta.set_parameter_bounds('4FGL J1104.4+3812','Prefactor',[1e-16,1000e-11])
+
+gta.set_parameter('4FGL J1104.4+3812','Index1', value = 1.739376675, scale = 1, error =  0.006991402649, update_source = False)
+gta.set_parameter_bounds('4FGL J1104.4+3812','Index1', [-5,5])
+
+gta.set_parameter('4FGL J1104.4+3812','Scale', value = 1287.365845, scale = 1, update_source = False)
+
+gta.set_parameter('4FGL J1104.4+3812','Cutoff', value = 256500, scale = 1, update_source = False)
+gta.set_parameter_bounds('4FGL J1104.4+3812','Cutoff',[100,513000])
+
+gta.set_parameter('4FGL J1104.4+3812','Index2', value = 1, scale = 1, update_source = False)
+
+</mark>
+
+</pre><p>This performs a likelyhood minimization in order to aquire a TS value for each source.</p><pre>
+<mark>gta.optimize()</mark>
+
+gta.print_model()
+print(gta.roi[SOURCE])
+
+</pre><p>Sources with too little significance can screw up the analysis. This freezes all sources with less than 3 sigma significance. You can also use <b>gta.free_source('name',free=True)</b> to free individual sources or freeze them.</p><pre>
+<mark>gta.free_sources(minmax_ts = [9,1600000])</mark>
+
+fit_results = gta.fit()
+gta.print_model()
+print(gta.roi[SOURCE])
+</pre><p>You can name the output files whatever you want by changing the names here. And you should change them.</p><pre>
+gta.write_roi(<mark>'fit_LP'</mark>, make_plots=True,save_model_map=True)
+tsmap = gta.tsmap(prefix=<mark>'TSmap_fit_LP'</mark>, make_plots=True)
+resid = gta.residmap(<mark>'Residuals_fit_LP'</mark>,make_plots=True)
+
+gta.print_model()
+gta.print_params(allpars=True)
+gta.print_roi()
+
+gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
+
+</pre><p>By default the <b>bin_index</b> is set to 2. After running the analysis once the output file will contain a new <b>bin_index</b> that you will specify here and run another analysis. Depending on the model you are using you will have to specify the <b>free_pars</b> of the source here. The <b>cov_scale</b> parameter is a "Scale factor that sets the strength of the prior on nuisance parameters that are free. Setting this to None disables the prior." I remember this parameter solved a problem I was having but I do not remember what that problem was. Though it was most likely a minimizer convergence failure.</p><pre>
+<mark>sed = gta.sed(SOURCE,prefix='SED_fit_LP', use_local_index = True, free_background = True, cov_scale = None)</mark>
+
+gta.write_roi('SED_fit_LP', make_plots=True,save_model_map=True)</pre>
+
+
+
+<div class="card">
+  <h1 style="text-align:center;">ltcurve.py</h1>
+  <a href="ltcurve.py">View</a><br>
+  <a href="sed.py" download>Download</a><br>
+  <p> If you are doing a ltcurve analysis of your source then you append the below lines to your sed.py code. I have already dones this in the downloadble ltcurve.py file above. When you run the code all changes you made to models and free sources in the sed.py will carry over to the ltcurve analysis.  Then you can use <b><i>source</i>_lightcurve.fits</b> within the output folder to graph the ltcurve (PLACE PYTHON FILE USED TO GRAPH POINTS HERE). Make sure you clean the data of any <b>nan</b> values at this point.</p>
+</div>
+
+<pre>
+#!/usr/bin/env python2.7
+
+import os
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+from fermipy.gtanalysis import GTAnalysis
+from fermipy.plotting import ROIPlotter, SEDPlotter
+from astropy.table import Table, Column
+import astropy.io.fits as pyfits
+import yaml
+
+plt.switch_backend('agg')
+
+config = yaml.load(open('config.yaml'))
+SOURCE = config['selection']['target']
+DIR = config['fileio']['outdir']
+LCDIR = config['lightcurve']['outdir']
+
+gta = GTAnalysis('config.yaml', logging={'verbosity':3})
+matplotlib.interactive(True)
+gta.setup()
+
+<mark>COPY AND PASTED FROM SED.PY. DOWNLOAD THE FILE IN THE HEADER ABOVE</mark>
+
+</pre><p> Depending on how large your errors are you may or may not want to free the background. The <b>shape_ts_threshold</b> sets the TS threshold at which shape parameters of sources will be freed. This can be problematic when you have already input your free and frozen sources as this command takes priority. I set the value arbitrarily large so it does not free any sources I do not want it too.<pre><p>
+lc = gta.lightcurve(SOURCE,<mark>free_background=False</mark>,make_plots=True,<mark>shape_ts_threshold = 1000000000</mark>)
+gta.write_roi(LCDIR+'LightCurve',make_plots=True,save_model_map=True)
+
+</pre><p>This makes an ascii data file of all the major values you will need to graph your LightCurve. However, I use the <b>source_lightcurve.fits</b> file within the output folder to do my graphing.</p><pre>
+<mark>lctab = Table([lc['tmin_mjd'],lc['tmax_mjd'],lc['ts'],lc['flux'],lc['flux_err'],lc['eflux'],lc['eflux_err']])</mark>
+<mark>lctab.write(DIR+'/'+LCDIR+'LightCurve.txt',format='ascii.fixed_width')</mark>
+</pre>
+
+<div class="card">
+  <h1 style="text-align:center;">Bayesian Blocks</h1>
+
+  <p> I wrote this code in a python Jupyter notebook. It makes it easier to fix bugs and what not. After making your lightcurve remove all points with <b>ts</b> values less than or equal to 3. This should get rid of most points that mess up the bayesian block code. Then remove all <b>nan</b> values from the data. Then run the bayesian blocks and plot it. Below ae the the important modules and code.</p>
+</div>
+
+<pre>
+  from pylab import *
+  import astropy.io
+  from astropy.stats import bayesian_blocks
+  from os import path, access, R_OK
+  import csv
+
+  import pandas as pd
+  from io import StringIO
+
+</pre> <p>The *<b>_cut</b> affix refers to my data after removing the <b>nan</b> values and low <b>ts</b> values. And the <b>p0</b> value refers to the <b>1-sigma</b> change required for two averages to be considered seperate blocks. So a <b>p0 = .05</b> corresponds to a 95% difference in average flux between each block. </p> <pre>
+  edges = bayesian_blocks(<mark>t_cut, flux_cut, fluxerr_cut</mark>, fitness='measures', p0 = 3e-7)
+
+  flux_cut_array = np.array(flux_cut)
+
+  plt.figure(1,figsize=(20,5))
+  errorbar(t_cut,flux_cut/(average(flux_cut)*(t[-1]-t[0])), yerr = array(fluxerr_cut)/(average(flux_cut)*(t[-1]-t[0])), fmt = 'o', alpha =0.2)
+  H2 = hist(t_cut, bins=edges, histtype='step', weights = flux_cut_array/2.1691328866824121e-08, normed = True,linewidth = 2,color='r')
+  ylabel(r'Flux (normalized units) = $\Phi_{\gamma} = Photons*cm^{-2} s^{-1}$')
+  xlabel('MJD')
+  plt.title('Bayesian Blocks with p0=5sigma')
+  plt.savefig('bayesianblock_5sigma.png')
+</pre>
+
+
+<h1 style="text-align:center;">OUTPUT IMAGES</h1>
+<div class="card">
+  <h2 style="text-align:center;">Hover Mouse Over Images</h2>
+  <p>The images created during an analysis help us visual a source's properties and help us see any potential probelms with the analysis. Below are what I believe to be the most important images. Other images will be created and have their own usefull information however the below images have the most pertinent information.</p>
+</div>
+
+
+<div class="row">
+
+	  <div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Map</h3> This image plots the number of counts per sky bin. This is what the Fermi sattelite sees.</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container">
+			  <img src="fit_LP_model_map_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Model Map</h3> Each source has its own model in the catalog. This image is a compilation of every model of each source in the field of view.</div>
+			  </div>
+			</div>
+		</div>
+
+</div>
+
+
+
+<div class="row">
+
+	  <div class="column">
+			<div class="container">
+			  <img src="Residuals_fit_LP_pointsource_powerlaw_2.00_residmap_excess.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Counts Residual</h3> Subtracting the model map from the counts map gives us a value called the residual. Given a perfect model the residual would be zero. This image acts as measure of model fitness. I believe this map has twenty thousand counts, so a residual that variates from -150 to 100 is very good</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container">
+			  <img src="Residuals_fit_LP_pointsource_powerlaw_2.00_residmap_sigma.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Sigma Residual</h3>This image tells us how significant the residual fluxuations are. Anything between 0 and 2 sigma is statisticly due to a random fluxuation in the night sky (stochastic noise). Even the occasional 3 sigma variation can be stochastic noise.</div>
+			  </div>
+			</div>
+		</div>
+
+</div>
+
+
+<div class="row">
+
+	  <div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_xproj_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">X Projection</h3>This images stacks all the counts along one axis. It is like viewing the source from the side. It is a good sign when the blue model and the error bars are ontop of eachother. Otherwise you may have made an oopsie with your free parameters.</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container">
+			  <img src="fit_LP_counts_map_yproj_2.000_5.710.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">Y Projection</h3>This images stacks all the counts along one axis. It is like viewing the source from the side. It is a good sign when the blue model and the error bars are ontop of eachother. Otherwise you may have made an oopsie with your free parameters.</div>
+			  </div>
+			</div>
+		</div>
+
+</div>
+
+
+
+<center>
+  <div class="container">
+  	<img src="fit_LP_counts_spectrum.png" class="image" style="width:100%">
+  	 <div class="middle">
+  		<div class="text" style="width:100%"><h3 style="text-align:left;">Spectrum Fit</h3> Above is the total counts per energy bin. This is an SED before we transform counts into units of energy. Below is another variation of the residual. We want an equal amount of points and error bars above and below the zero line.</div>
+  	</div>
+  </div>
+</center>
+
+
+
+<div class="row">
+
+	  <div class="column">
+			<div class="container">
+			  <img src="SED_fit_LP_4fgl_j1104.4+3812_sed.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED</h3>This is what we get when we transorm the Spectrum Fit's count bins into energy bins. There are less high energy photons than low energy photons for this source but the total energy emission is greater at high energies than at low energies.</div>
+			  </div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container">
+			  <img src="SED_fit_LP_4fgl_j1104.4+3812_sedlnl.png" class="image" style="width:175%">
+			  <div class="middle">
+			    <div class="text" style="width:260%"><h3 style="text-align:left;">SED With Sigma Error</h3>Same as the SED but with visual significant deviations. As long as most of the points have   overlapping the model you are doing good.</div>
+			  </div>
+			</div>
+		</div>
+
+</div>
+
+
+
+
+
+
+
+<h1 style="text-align:center;">PROBLEM SOLVING/TIPS AND TRICKS/WISDOM: work in progress</h1>
+
+<div class="card">
+  <h2>Problematic time periods</h2>
+  <p>The most prevelent error for my analysis was a GTI error. GTI stands for Good Time Interval. Every now and then a bin would have too little GTI and raise an error. At first I iterated through the data from the start time of the error till I hit the next good GTI. Then I broke the lightcurve up into two blocks, one before and one after the bad GTI error. This worked for some GTI errors but not all. All remaining GTI errors were instead broken into two bloacks and iterated manually till both blocks ran without error. One specific cut is associated with a FermiLAT malfunction. Luckily I did all the hard work of finding these anaomalyous time regions. If your analysis runs through any of these make sure to work around them. Also note that these errors depend on the size of the lightcurve time bins. If your anlaysis uses month bins then there are only two month long problematic time periods you need to worry about and ignore the rest.</p>
+
+  <p>The times below are formatted in fermi seconds and represent the start and end times for all proplematic time periods.</p>
+
+  <pre>
+        258423217.000 - 258856049.92907503 | 5 days
+        286829018.000 - 286917169.90681678 | 1 days
+        407983419.494 - 409498047.63590258 | 17 days + at least 4 salvageable days
+        415081647.000 - 415343491.645      | 3 days
+        417966091.000 - 418021891.000      | 1 days
+        491867020.000 - 492018220.000 | 2 days
+        492018220.494 - 492448306.000 | 5 days
+        543012221.000 - 546855985.000 | 2018-03-17 - 2018-05-01 about a month
+        547818985.000 - 548510185.000 | 8 days
+        550540585.000 - 551145385.000 | 7 days
+        551822185.000 - 552425185.000 | 7 days
+        554370985.000 - 555090221.494 | 8 days
+        556105421.000 - 558604903.000 | 29 days
+        558943303.000 - 559045108.000 | 1 day
+        560652508.000 - 562461508.000 | 20 days
+        563476708.000 - 563910508.000 | 5 days
+        570631708.000 - 571319308.000 | 8 days
+
+  </pre>
+</div>
+
+<p>Last updated 16 September 2020</p>
+
+</body>
+
+</html>

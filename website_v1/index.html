@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<style>
+
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+  }
+
+  .header h1 {
+    font-size: 50px;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+mark {
+  background-color: #e2acfb;
+  color: black;
+}
+
+.text {
+  background-color: #7300EF;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
+
+.card {
+  background-color:  #aaa;
+  padding: 20px;
+  margin-top: 20px;
+}
+</style>
+	<title>William_Ryan</title>
+	<meta charset="utf-8">
+</head>
+
+
+
+<body>
+
+<div class="header">
+  <h1 style="text-align:center;">WILLIAM RYAN</h1>
+</div>
+
+<div class="topnav">
+  <a href="index.html">Home</a>
+
+  <a href="research.html">Research</a>
+  <a href="fermipy_guide.html">Fermipy Guide</a>
+</div>
+
+<div class="card">
+  <h2>Resume</h2>
+  <p> <a href="res1.pdf">Resume</a></p>
+</div>
+
+<div class="card">
+  <h2>Curiculum Vitae</h2>
+  <p>My CV is currently a copy of my Resume. <a href="res1.pdf">CV</a></p>
+</div>
+
+<div class="card">
+	<h2>A little about me</h2>
+	<p title="A little About me">
+ Hi, my name is Will. <br>
+ My Favorite color is green and I like artichokes.<br><br>
+
+ I am currently a senior at UCSC pursuing a degree in Physics and a degree in Computational Mathematics. Right now I am working on Graduate School applications and hope to study Spacee Plasma Physics. More specifically I hope to study MHD turbulence, magnetic reconnection, magetospheres, sun stuff... and more! <br><br>
+
+ I was a collegiate gymnast for my first three years of college and I now do flips and tricks just for fun. If you would like to see me do some cool stuff then take a look at my profile @william.j.ryan on instagram (though in the future I might figure out how to embed images and video her on the website). Doodling and reading is a favorite passtime for me and I eat too many snacks.<br><br>
+
+ <b>If you would like to contact me:</b> <br>
+ Personal Email: wr2cruz@gmail.com <br>
+ School Email: wjryan@ucsc.edu
+	</p>
+</div>
+
+<p>Last updated 28 September 2020</p>
+
+</body>
+</html>

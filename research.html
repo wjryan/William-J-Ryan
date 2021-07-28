@@ -1,132 +1,86 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-<style>
 
-  .header {
-    padding: 30px;
-    text-align: center;
-    background: white;
-  }
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>William J Ryan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700;800&family=Roboto:wght@100;200;300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/master.css">
+  </head>
 
-  .header h1 {
-    font-size: 50px;
-  }
-
-  .topnav {
-    overflow: hidden;
-    background-color: #333;
-  }
-
-  .topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-
-  body {
-  font-family: Arial;
-  padding: 10px;
-  background: #f1f1f1;
-}
-.container {
-  position: relative;
-  width: 50%;
-}
-
-.image {
-  opacity: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: .5s ease;
-  backface-visibility: hidden;
-}
-
-.middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%)
-}
-
-.container:hover .image {
-  opacity: 0.3;
-}
-
-.container:hover .middle {
-  opacity: 1;
-}
-
-mark {
-  background-color: #e2acfb;
-  color: black;
-}
-
-.text {
-  background-color: #7300EF;
-  color: white;
-  font-size: 16px;
-  padding: 16px 32px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.row {
-  display: flex;
-}
-
-.column {
-  flex: 50%;
-  padding: 5px;
-}
-
-.card {
-  background-color:  #aaa;
-  padding: 20px;
-  margin-top: 20px;
-}
-</style>
-	<title>William_Ryan</title>
-	<meta charset="utf-8">
-</head>
+  <body>
+    <div class="header-section">
+        <a href="index.html" aria-current="page" class="home-link" style="text-decoration: none;"><h1 class="blog-name">WILLIAM J RYAN</h1></a>
+        <div class="navigation-bar">
+          <a href="index.html" class="nav-link" style="text-decoration: none;">ABOUT</a>
+          <a href="resumecv.html" class="nav-link" style="text-decoration: none;">RESUME / CV</a>
+          <a href="research.html" class="current-link" style="text-decoration: none;">RESEARCH / PROJECTS</a>
+        </div>
+    </div>
 
 
+<div class="main-body">
 
-<body>
+  <div class="container">
+      <a href="embed_chaos_game.html" class="image-link"><img src="hexagon.jpg" class="basic-image"></a>
+      <h2 class="section-name">Fun with Random Walks</h2>
+      <h2 class="date">7 July 2021</h2>
+      <p class="paragraph">I coded a "chaos game" based on a Numberphile Video on Youtube linked <a href="https://youtu.be/kbKtFN71Lfs">here</a>. The game uses the three vertices of a triangle, each weighted with equal proability on a dice, and a single starting point. A dice is thrown and a new point is placed midway between the associated vertex and the starting point. Using the new point as the new starting point, this process is repeated N times. With enough points a Sierpiński triangle forms. Starting with hexagon rather than a triangle results in the mesmerizing image in the thumbnail. This random walk process is studied in chaos theory, a field I am interested in and will continue to study and write about here.
+      </p>
+      <a href="embed_chaos_game.html" class="read-more" style="text-decoration: none;">READ MORE</a>
+  </div>
+  <div class="spacer">
+  </div>
 
-<div class="header">
-  <h1 style="text-align:center;">RESEARCH</h1>
+  <div class="container">
+    <a href="embed_thesis.html" class="image-link"><img src="blazar.png" class="basic-image"></a>
+    <div class="header-wrapper">
+      <h2 class="section-name">Multiwavelength Analysis of the Blazar Markarian 421</h2>
+      <h2 class="date">9 June 2021</h2>
+    </div>
+    <p class="paragraph"> The blazar Markarian 421 is a supermassive black hole with a jet, accelerating particles to near lightspeed, pointed towards Earth. This paper presents a short-term and a long-term variability analysis, using the discrete correlation function, a series of least-squared fits, and the Lomb-Scargle periodogram, that probes Markarian 421's jet structure and possible long term periodicity in Markarian 421's average emmisions.
+      </p>
+      <a href="embed_thesis.html" class="read-more" style="text-decoration: none;">READ MORE</a>
+  </div>
+  <div class="spacer">
+  </div>
+
+  <div class="container">
+      <a href="embed_steiner.html" class="image-link"><img src="steiner.png" class="basic-image"></a>
+      <h2 class="section-name">Steiner Systems</h2>
+      <h2 class="date">5 June 2021</h2>
+      <p class="paragraph"> This report introduces Steiner systems, a type of block design, and how such systems can be used to geometrically solve the Kirkman student problem, a famous question in combinatorics.
+      </p>
+      <a href="embed_steiner.html" class="read-more" style="text-decoration: none;">READ MORE</a>
+  </div>
+  <div class="spacer">
+  </div>
 </div>
 
-<div class="topnav">
-  <a href="index.html">Home</a>
-
-  <a href="research.html">Research</a>
-  <a href="fermipy_guide.html">Fermipy Guide</a>
+<div class="container">
+      <a href="embed_fermipy.html" class="image-link"><img src="its_dangerous.jpg" class="basic-image"></a>
+      <h2 class="section-name">Guide to Fermipy</h2>
+      <h2 class="date">1 January 2021</h2>
+      <p class="paragraph"> This guide introduces the fermipy suite of tools and how they can be used to produce spectral energy density diagrams and light-curves for Fermi-LAT data.
+      </p>
+      <a href="embed_fermipy.html" class="read-more" style="text-decoration: none;">READ MORE</a>
+  </div>
+  <div class="spacer">
+  </div>
 </div>
 
-<div class="card">
-	<p>
-	I am currently working on a report chronicaling my research to date. I will link it here when I am done. If you are interested in the tools I used to perform my research then take a look at my Fermipy Guide on the hotbar above.  <!--<a href="mrk_421_analysis.pdf">PDF</a> -->
-	</p>
+<div class="footer">
+<img src="starship_2.png" class="logo-image">
+  <div class="container">
+    <a href="https://www.instagram.com/william.j.ryan/" class="social-icon-link"><img src="instagram.png" width="20" alt=""></a>
+    <a href="mailto:wr2cruz@gmail.com" class="social-icon-link"><img src="https://assets.website-files.com/5e4b1ad5ea2f4614ece99672/5e4b1ad5ea2f464178e996fd_social-30.svg" width="20" alt=""></a>
+  </div>
+
 </div>
 
-<p>Last updated 28 September 2020</p>
 
-</body>
+  </body>
+
 </html>

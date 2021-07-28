@@ -1,0 +1,51 @@
+data:
+      evfile : 'data/mrk421_binned_events.txt' #CHANGE THIS
+      scfile : 'data/mrk421_SC00.fits' #CHANGE THIS
+
+binning:
+      roiwidth : 10.0
+      binsz : 0.1
+      binsperdec : 8
+
+selection:
+      emin : 100
+      emax : 513000
+      zmax : 90
+      tmin : 239599263.000000 #CHANGE THIS
+      tmax : 263677795.000000 #CHANGE THIS
+      evclass : 128
+      evtype : 3
+      ra : 166.113808 #CHANGE THIS
+      dec : 38.208833 #CHANGE THIS
+      target : 'mkn 421' #CHANGE THIS
+      radius : 10.0
+      # gtmktime parameters
+      filter : 'DATA_QUAL>0 && LAT_CONFIG==1'
+      roicut : 'no'
+
+
+gtlike:
+      edisp : True
+      irfs : 'P8R3_SOURCE_V2'
+      edisp_disable : ['isodiff', 'galdiff']
+
+model:
+      src_roiwidth: 15.0
+      galdiff : '$FERMI_DIR/refdata/fermi/galdiffuse/gll_iem_v07.fits' #CHANGE THIS
+      isodiff : '$FERMI_DIR/refdata/fermi/galdiffuse/iso_P8R3_SOURCE_V2_v1.txt' #CHANGE THIS
+      catalogs : ['4FGL'] #CHANGE THIS
+
+fileio:
+      outdir : 'SED_output'  #CHANGE THIS IF DESIRED
+      logfile : Fermipy.log  #CHANGE THIS IF DESIRED
+
+
+lightcurve:
+      make_plots : True
+      outdir : 'ltcurve_files' #CHANGE THIS IF DESIRED
+      binsz : 84600.0 #1 days
+      free_background : True  #CHANGE THIS IF DESIRED
+
+sed:
+      make_plots : True
+      free_background : True  #CHANGE THIS IF DESIRED
