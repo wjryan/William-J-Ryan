@@ -23,26 +23,26 @@
 
 <div class="main-body">
   <div class="container">
-  
+
     <h2 class="section-name"> <b>Guide to Fermipy</b> </h2>
-    
+
     <p class="paragraph">This guide gives a general introduction to Fermipy and how it can be used to make sepectral energy density diagrams and light-curves. Along the way I note a variety of issues and solutions I have faced and solved so your code has fewer issues.
     <p>
-    
+
     <p class="resume-header">What is Fermipy?</p>
     <p class="paragraph">
     Fermipy is a set of analysis tools in python tailored to analyze data from the Fermi Large Area Telescope (Fermi-LAT), one of two instruments aboard the Fermi orbital satellite. This Guide will go over the three analysis methods I am most familiar with, SED, Light-curve, and bayesian blocks.
     </p>
-    
+
     <p class="resume-header">Data Acquisition</p>
     <p class="paragraph">
-    The data for a Fermi-LAT can be downloaded from the official website <a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as your cordinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe and most accurate energy range for Fermi is between 100 and 513000 MeV. Make sure the space craft file box is checkmarked. The search radius is 15 degrees.
+    The data for a Fermi-LAT can be downloaded from the official website <a href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">here</a>. Stick with J2000 as your cordinate system. Make sure you plug in the observation dates in accordance with the associated time system. The safe and most accurate energy range for Fermi is between 100 and 513000 MeV. Make sure the space craft file box is checkmarked. The search radius is 15 degrees by default and defines the area around your source that you want data for.
     </p>
     <div class="spacer">
     </div>
-    
+
     <h2 class="section-name"> <b>A general overview of Fermipy analyses</b> </h2>
-    
+
     <p class="resume-header">Spectral Energy Density (SED)</p>
     <p class="paragraph">
     Given a photon has a continuous distribution of energies it could possess we can sort a source's photon data set into groups (bins) of similar energies. Each bin can be translated into a total energy, graphed, and fit with a model. This model's fancy name is a Spectral Energy Distribution or SED for short. With an SED we know approximately how much energy flux is emitted from a source at a specific energy. SEDs are useful for creating a lightcurve and understanding the basic properties of the source in question.
@@ -53,49 +53,59 @@
     </p>
     <div class="spacer">
     </div>
-    
+
     <p class="resume-header">Light-curve</p>
     <p class="paragraph">
     Knowing how many photons a source emits is not as useful as knowing at which energies and with what intensity a source emits at. We can place a source's photon data into time bins (day/week/month/etc bins) and use the SED to transform a bin's total photons into a total energy value. Performing this operation over a data set produces a flux versus time graph called a lightcurve. A variety of analses can be performed on a lightcurve to probe patterns within a sources emissions.
     </p>
     <img src="fermi_ltcurve_bayesian.png" class="basic-image">
     <p class="paragraph">
-    <b>Figure 2.</b> In blue is a one-day-binned light-curve over 11 years for the blazar Markarian 421. Baysian blocks are identified in yellow, where each block represents a period of time with average flux 5 sigma away from each adjacent period of time.
+    <b>Figure 2.</b> In blue is a one-day-binned light-curve over 11 years for the blazar Markarian 421. Baysian blocks are identified in yellow, where each block represents a period of time with average flux 5 standard deviations away from each adjacent period of time.
     </p>
     <div class="spacer">
     </div>
-    
+
     <p class="resume-header">The Code</p>
     <p class="paragraph">
-    With the program properly installed, Fermipy requires 3 sets of files that must be tailored for your particular analysis. The first set of files is the data. These files are split between a set of photon files, which record photon events, and a spacecraft file, which record Fermi-LAT's position at each instance of a photon event. The data should be placed into its own folder along with a text file containing the absolute path for each photon file. This text file should look like the following:
+    With the program properly installed, Fermipy requires 3 sets of files that must be tailored for your particular analysis. The first set of files is the data. These files are split between a set of photon files, which record photon events, and a spacecraft file, which record Fermi-LAT's position at each instance of a photon event. The data should be placed into its own folder along with a text file containing the absolute path for each photon file. This text file should contain the following:
     </p>
-    
+
     <div class="container">
     <embed class="txt" src="events.txt" width="800px" height="155px" />
     </div>
-    
+
     <p class="paragraph">
-    In this example, instead of using the absolute path for each photon file, I used the relative path, from the folder where the script will be run to the folder where the data is stored. Either path works but both require attention to using the correct path. The second file is the configuration file and contains a number of parameters that
+    In this example, instead of using the absolute path for each photon file, I used the relative path, from the folder where the script will be run to the folder where the data is stored. Either path works but both require attention to using the correct path.
     </p>
-    
+
+    <p class="resume-header">The Configuration File</p>
+    <a href="config.yaml" class="read-more" download style="text-decoration: none;">DOWNLOAD CONFIGURATION FILE</a>
+    <p class="paragraph">
+    The second file is the configuration file (<b>config.yaml</b>) and contains a number of parameters that will be used in the analysis. The <b>evfile</b> contains the relative or absolute path to the text file described above and will allow Fermipy to access the photon files. The <b>scfile</b> contains the absolute or relative path to the spacecraft file. The <b>roiwidth</b> stands for "region of interest width" and marks the area around your source that you want to analyze. The photon data and spacecraft file can be used to make a 2D sky map where the "x-axis" and "y-axis" are defined by orthogaonal angles. The <b>binsz</b> refers to the spatial bin size on this 2D map. The <b>binsperdec</b> parameter stands for "bins per decade (of energy)" and defines the number of bins of energy desired for each decade (power of 10) of energy. The <b>tmin</b> and <b>tmax</b> refer to the start and end time associated with the data. These times are formatted in fermi seconds, and a timee converter from calender date to Fermi seconds (among other time conversions) can be found at this <a href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">link</a>.The coordinates of the source, right ascension and declination, are placed in <b>ra</b> and <b>dec</b> respectively. The files for the galactic diffuse model (<b>galdiff</b>), isotropic model (<b>isodiff</b>), and catalog (<b>catalogs</b>) should have the correct absolute paths placed in the configuration. The <b>outdir</b> contains the name of the folder where all output files will be placed. The <b>logfile</b> contains the name of the file that will be used to output all dialog produced by the python script. The <b>outdir</b> underneath the lightcurve section is the name of the folder where all lightcurve output files will be places, which is subsequently placed in the the fileio outdir previusly mentioned. The <b>binsz</b> in the lightcurve section refers to the time bins, in seconds, that will be used in the Lightcurve analysis. For any subsequent clarification, more information, and more options with the configuration file visit this <a href="https://fermipy.readthedocs.io/en/latest/config.html">link</a>.
+    </p>
+
     <div class="container">
-    <embed class="txt" src="config.txt" width="800px" height="815px" />
+    <embed class="txt" src="config.txt" width="800px" height="700px" />
     </div>
-    
+
+    <p class="resume-header">The Python Script</p>
+    <a href="config.yaml" class="read-more" download style="text-decoration: none;">DOWNLOAD PYTHON SCRIPT</a>
+
     <p class="paragraph">
-    In this example, instead of using the absolute path for each photon file, I used the relative path, from the folder where the script will be run to the folder where the data is stored. Either path works but both require attention to using the correct path. The second file is the configuration file and contains a number of parameters that
+    The third file is the python sript that will run the analysis. The example code below will contain script for the SED and light-curve analysis. Most relevant information is written in the physical code so I recommend reading through it first. I also strongly recommend reading through the "Data Preparation" section of my senior thesis, located under RESEARCH / PROJECTS, titled "Multiwavelength Analysis of the Blazar Markarian 421", as the fitting process and general theory for SEDs and light-curves are well documented there. For additional information or commands not covered here or in the paper, visit this <a href="https://fermipy.readthedocs.io/en/latest/fermipy.html#fermipy-gtanalysis-module">link</a>.
     </p>
-    
+
+
     <div class="container">
-    <embed class="txt" src="sed.txt" width="800px" height="1955px" />
+    <embed class="txt" src="sed.txt" width="800px" height="700px" />
     </div>
-    
+
     <p class="paragraph">
     In this example, instead of using the absolute path for each photon file, I used the relative path, from the folder where the script will be run to the folder where the data is stored. Either path works but both require attention to using the correct path. The second file is the configuration file and contains a number of parameters that
     </p>
-    
-    <p class="resume-header">Outputs</p>
-    
+
+    <p class="resume-header">Output Images</p>
+
   </div>
 </div>
 
