@@ -131,12 +131,13 @@ print('=====')
 print('Preliminary fit to make preliminary plots')
 print('=====')
 
-#Here we do a preliminary fit without any 
+#Here we do a preliminary fit without any input parameters
 fit_results = gta.fit()
 gta.print_model()
 print(gta.roi[SOURCE])
 tsmap = gta.tsmap(prefix='TSmap', make_plots=True)
 resid = gta.residmap('Residuals',make_plots=True)
+gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
 
 print('=====')
 print('Done with preliminary fit and plots')
@@ -145,7 +146,11 @@ print('=====')
 
 
 
-print('Printing info to the screen again')
+
+print('=====')
+print('Printing info to the screen for another sanity check')
+print('=====')
+
 print('_____________________________________________')
 print('=====')
 gta.print_model()
@@ -155,28 +160,40 @@ print('=====')
 gta.print_roi()
 print('_____________________________________________')
 
+print('=====')
+print('Finished another sanity check')
+print('=====')
 
-gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
+
 
 
 
 print('=====')
-print('Starting SED')
+print('Starting the SED fit')
 print('=====')
-
-#SED
-'''
-All the hard work has been done already. This will still take some
-time to compute because it will peform the analysis with the
-sources that were freed for the fitting. Go get some tea.....
-'''
 
 sed = gta.sed(SOURCE,prefix='SED_fit', use_local_index = True, free_background = True, cov_scale = None)
-gta.write_roi('roi_2', make_plots=True,save_model_map=True)
+gta.write_roi('save_analysis_state', make_plots=True,save_model_map=True)
 
 print('=====')
-print('SED finished')
+print('SED fit finished')
 print('=====')
 
 
-print('End of SED')
+
+
+#=================================================================================
+#Stop here if you do not want to make a light-curve
+#=================================================================================
+
+
+
+
+
+print('=====')
+print('Starting the light-curve fit')
+print('=====')
+
+print('=====')
+print('light-curve fit finished')
+print('=====')

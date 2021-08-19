@@ -87,6 +87,8 @@
     <div class="container">
     <embed class="txt" src="config.txt" width="800px" height="700px" />
     </div>
+    <div class="spacer">
+    </div>
 
     <p class="resume-header">The Python Script</p>
     <a href="config.yaml" class="read-more" download style="text-decoration: none;">DOWNLOAD PYTHON SCRIPT</a>
@@ -103,8 +105,77 @@
     <p class="paragraph">
     In this example, instead of using the absolute path for each photon file, I used the relative path, from the folder where the script will be run to the folder where the data is stored. Either path works but both require attention to using the correct path. The second file is the configuration file and contains a number of parameters that
     </p>
+    <div class="spacer">
+    </div>
+
+
 
     <p class="resume-header">Output Images</p>
+    <img src="counts_map.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 3.</b> Using the 2D spatial bins described in the configuration file, Fermipy compiles a 3D photon counts map of all sources within the region of interest.
+    </p>
+    <div class="spacer">
+    </div>
+
+    <img src="model_counts_map.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 4.</b> Using models for each source within the region of interest, as specified in the Fermi catalog, a 3D model of the photon counts map is produced.
+    </p>
+    <div class="spacer">
+    </div>
+
+    <img src="xprojection.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 5.</b>
+    Summing the photon counts along one axis of the 3D counts map results in a 2D counts map. This image has both all raw counts and all source models within the region of interest.
+    </p>
+    <div class="spacer">
+    </div>
+
+    <img src="yprojection.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 6.</b> This is identical to the previous figure but the photon counts are summed up along the opposite axis.
+    </p>
+    <div class="spacer">
+    </div>
+
+    <img src="counts_spectrum.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 7.</b> This is the counts spectrum for all sources as described in my thesis on page 8 linked <a href="https://wjryan.github.io/William-J-Ryan/embed_thesis.html">here</a>. As previously stated, I recommend reading through this portion of my thesis as it provides more specific information for counts spectrums, spectral energy densities, and light-curves.
+    </p>
+    <div class="spacer">
+    </div>
+
+    <img src="sed_fit.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 8.</b> This is an SED of Markarian 421 fitted with a logparabolic model.
+    </p>
+    <div class="spacer">
+    </div>
+
+    <img src="residuals_sigma.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 9.</b> Let us take the final SED fit and its associated 3D counts map and subtract the true counts map. Should the model have a perfect fit this difference should produce a counts map with zero counts in each bin. This quantity is called the residual. Using the same process but with each bin's errors leaves us with a residual significance map as seen here. A good fit has a residual significance map with values no larger than ~(2) and no smaller than ~(-2). Should large significances exist here, you may have discovered a new source or your fit is somehow wonky.
+    </p>
+    <div class="spacer">
+    </div>
+
+    <img src="tsmap_fit.png" class="basic-image">
+    <p class="paragraph">
+    <b>Figure 10.</b> This is a residual Test Significance (TS) map. The same priniples described in Figure 9 apply here but with TS instead of significance. A more detailed explanation of TS can be found in the same section of my thesis as described previously.
+    </p>
+    <div class="spacer">
+    </div>
+
+  <p class="resume-header">Output Files</p>
+
+
+  <p class="resume-header">No Good Time Intervals</p>
+
+
+  <p class="resume-header">Last remarks</p>
+
 
   </div>
 </div>
