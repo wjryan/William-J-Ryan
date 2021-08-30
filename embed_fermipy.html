@@ -109,7 +109,6 @@
     </div>
 
 
-
     <p class="resume-header">Output Images</p>
     <img src="counts_map.png" class="basic-image">
     <p class="paragraph">
@@ -168,15 +167,26 @@
     <div class="spacer">
     </div>
 
-  <p class="resume-header">Output Files</p>
-
-
   <p class="resume-header">No Good Time Intervals</p>
+  <p class="paragraph">
+  Occasionally when you run the code for a light-curve analysis and your bins are on the order of a day you will find an error stating "no GTI found." This acronym (GTI) stands for "Good Time Interval." Fermipy will break whenever it encounters a time period with no GTI. This is problematic and steps should be taken to maneuver around these time periods. Some of these time periods correspond to times when the Fermi Large Area Telescope was physically down (maybe emotionally too). These periods are generally less than a day and can be found here. Should these no GTI periods not correspond to any of the periods found in the linked website then your data files were most likely corrupted or compiled incorrectly when you downloaded them. So the data files should be re-downloaded.
+  </p>
+
+  <img src="discrepency.png" class="basic-image">
+  <p class="paragraph">
+  <b>Figure 11.</b> The GTI is plotted against itself on the left and the times associated with a measured photon are plotted against itself on the right. We have a conundrum since we have data during a supposed period of time with no GTI. After re-downloading the data this discrepency disapeared.
+  </p>
+  <div class="spacer">
+  </div>
 
 
   <p class="resume-header">Last remarks</p>
+  <p class="paragraph">
+    Good Luck! I hope this guide helped a bit. And as a last piece of advice, I recommend saving every coding error and subsequent solution you come across in an xl sheet. I believe it will save you a lot of effort in the long run when you run into a similar error later on.
+  </p>
+  <p class="paragraph">
 
-
+  </p>
   </div>
 </div>
 

@@ -2,13 +2,13 @@
 
 
 
+
+
 print('=====')
-print('Importing modules')
+print('Importing Modules')
 print('=====')
 
-
-
-#Importing the needed modules
+#Begin by importing all python modules needed for the analyses to run.
 import os
 import matplotlib.pyplot as plt
 import matplotlib
@@ -19,56 +19,99 @@ from astropy.table import Table, Column
 import astropy.io.fits as pyfits
 import yaml
 
-
-
-
-#This makes matplotlib.pyplot function correctly.
+#This argument tweaks matplotlib.pyplot so it functions correctly with fermipy.
 plt.switch_backend('agg')
 
 print('=====')
-print('Finished importing Modules')
+print('Finished Importing Modules')
 print('=====')
 
 
 
-# Loading the configuration file and making a variable
+
+
+print('=====')
+print('Config Loading')
+print('=====')
+
+#Now, the configuration file and all its initial parameters are loaded in to the program.
+#Heads up, many of these configuration parameters can also be changed using this script.
 config = yaml.load(open('config.yaml'))
 SOURCE = config['selection']['target']
 DIR = config['fileio']['outdir']
 LCDIR = config['lightcurve']['outdir']
 
-
-
 print('=====')
 print('Config Loaded')
 print('=====')
+
+
+
+
+
 print('=====')
-print('Performing setup')
+print('Performing Setup')
 print('=====')
 
-#Reading in the config.yaml and beginning the Fermi Analysis
+#The loaded parameters are now read and used to setup a number of files formatted
+# such that calculations are quicker later on.
 gta = GTAnalysis('config.yaml', logging={'verbosity':3})
 matplotlib.interactive(True)
 gta.setup()
 
-#The optimize function calculates the TS for each source in the region of interest (ROI)
-#Because gta.free_sources() and gta.sed() require TS, the optomize function here must be performed first
+print('=====')
+print('Setup Finished')
+print('=====')
+
+
+
+
+
+print('=====')
+print('Optimizing')
+print('=====')
+
+#The optimize function performs a quick SED fit so the TS can be calculated for each source
+# in the field of view.
+#The TS (Test Statistic) is used by a number of subsequent commands to tailor the analyses.
 gta.optimize()
 
-
 print('=====')
-print('Freeing all sources with significance greater than 9 TS')
-print('And printing some information')
+print('Finished Optimizing')
 print('=====')
 
+
+
+
+
+print('=====')
+print('Freezing all sources with significance less than 9 TS and Printing information')
+print('=====')
+
+#For those sources with low significance, and hence low TS, the gta.free_sources command
+# will freeze those sources with TS outside the designated boundaries. I have set the
+# lower bound at 9 TS (~3 standard deviations) and the upper bound arbitrarily high so
+# only those sources with TS<9 are frozen in the fit. This will constrain the fit and
+# usually produce more reasonable SEDs. I also print some information to the screen
+# so I know what information the program starts with.
 gta.print_model()
 print(gta.roi[SOURCE])
-
 gta.free_sources(minmax_ts = [9,1600000])
 
+print('=====')
+print('Finished freezing sources and Printing information')
+print('=====')
+
+
+
+
+
+print('=====')
+print('Printing information to screen to make sure the sources were frozen/freed correctly')
+print('=====')
 
 print('_____________________________________________')
-print('-----')
+print('=====')
 gta.print_model()
 print('=====')
 gta.print_params(allpars=True)
@@ -77,52 +120,88 @@ gta.print_roi()
 print('_____________________________________________')
 
 print('=====')
-print('Fit_results and plots')
+print('Finished sanity check')
 print('=====')
 
 
+
+
+
+print('=====')
+print('Preliminary fit to make preliminary plots')
+print('=====')
+
+#Here we do a preliminary fit without any input parameters
 fit_results = gta.fit()
 gta.print_model()
 print(gta.roi[SOURCE])
-gta.write_roi('roi_1',save_model_map=True)
-
-print('_____________________________________________')
-print('Now to make a TSmap and residual map')
 tsmap = gta.tsmap(prefix='TSmap', make_plots=True)
 resid = gta.residmap('Residuals',make_plots=True)
-print('_____________________________________________')
+gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
 
-print('Printing info to the screen again')
+print('=====')
+print('Done with preliminary fit and plots')
+print('=====')
+
+
+
+
+
+print('=====')
+print('Printing info to the screen for another sanity check')
+print('=====')
+
 print('_____________________________________________')
+print('=====')
 gta.print_model()
-print('_____________________________________________')
+print('=====')
 gta.print_params(allpars=True)
-print('_____________________________________________')
+print('=====')
 gta.print_roi()
 print('_____________________________________________')
 
+print('=====')
+print('Finished another sanity check')
+print('=====')
 
-gta.residmap(prefix = 'weighted_residuals', make_plots = True, use_weights = True)
+
 
 
 
 print('=====')
-print('Starting SED')
+print('Starting the SED fit')
 print('=====')
 
-#SED
-'''
-All the hard work has been done already. This will still take some
-time to compute because it will peform the analysis with the
-sources that were freed for the fitting. Go get some tea.....
-'''
+#Here, the SOURCE is the name of the source in question, as defined in the loading
+# of the configuration file. The prefix attribute lets you set the prefix name of all
+# output files of the SED fitting process. The gta.write_roi() function saves the
+# state of the analysis so you can later load it and continue with a subsequent analysis,
+# like a light-curve, without having to manually input parameters or redoing the analysis.
+#Specific parameters can be defined, frozen, or freed here as well. For more analysis
+# options visit https://fermipy.readthedocs.io/en/latest/fermipy.html#fermipy-gtanalysis-module
 
 sed = gta.sed(SOURCE,prefix='SED_fit', use_local_index = True, free_background = True, cov_scale = None)
-gta.write_roi('roi_2', make_plots=True,save_model_map=True)
+gta.write_roi('save_analysis_state', make_plots=True,save_model_map=True)
 
 print('=====')
-print('SED finished')
+print('SED fit finished')
 print('=====')
 
 
-print('End of SED')
+
+
+#=================================================================================
+#Stop here if you do not want to make a light-curve
+#=================================================================================
+
+
+
+
+
+print('=====')
+print('Starting the light-curve fit')
+print('=====')
+
+print('=====')
+print('light-curve fit finished')
+print('=====')

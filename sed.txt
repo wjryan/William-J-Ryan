@@ -172,6 +172,14 @@ print('=====')
 print('Starting the SED fit')
 print('=====')
 
+#Here, the SOURCE is the name of the source in question, as defined in the loading
+# of the configuration file. The prefix attribute lets you set the prefix name of all
+# output files of the SED fitting process. The gta.write_roi() function saves the
+# state of the analysis so you can later load it and continue with a subsequent analysis,
+# like a light-curve, without having to manually input parameters or redoing the analysis.
+#Specific parameters can be defined, frozen, or freed here as well. For more analysis
+# options visit https://fermipy.readthedocs.io/en/latest/fermipy.html#fermipy-gtanalysis-module
+
 sed = gta.sed(SOURCE,prefix='SED_fit', use_local_index = True, free_background = True, cov_scale = None)
 gta.write_roi('save_analysis_state', make_plots=True,save_model_map=True)
 
