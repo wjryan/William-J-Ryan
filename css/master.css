@@ -15,6 +15,21 @@
   margin-bottom: 50px;
 }
 
+.index_paragraph {
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: black;
+  text-align: center;
+  padding: 14px 14px;
+  margin: 0 auto 30px;
+  max-width: 800px;
+  line-height: 30px;
+  position: relative;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .paragraph {
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
